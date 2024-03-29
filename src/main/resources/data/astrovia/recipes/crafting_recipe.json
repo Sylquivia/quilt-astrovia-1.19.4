@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:yellow_dye"
+        },
+        {
+            "item": "minecraft:leather_helmet"
+        },
+        {
+            "item": "minecraft:wither_skeleton_skull"
+        }
+    ],
+    "result": {
+        "item": "astrovia:dankie_poo",
+        "count": 1
+    }
+}
