@@ -1,9 +1,8 @@
 package io.github.sylquivia.astrovia;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -20,8 +19,18 @@ public class AstroviaItems {
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "please_work"), new BlockItem(PLEASE_WORK, new QuiltItemSettings()));
 
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+		ItemGroup ASTROVIA_ITEMS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_items"))
+			.icon(() -> new ItemStack(DANKIE_POO))
+			.build();
+		ItemGroup ASTROVIA_BLOCKS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_blocks"))
+			.icon(() -> new ItemStack(PLEASE_WORK))
+			.build();
+
+		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ITEMS).register(entries -> {
 			entries.addItem(DANKIE_POO);
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
 			entries.addItem(PLEASE_WORK.asItem());
 		});
 	}
