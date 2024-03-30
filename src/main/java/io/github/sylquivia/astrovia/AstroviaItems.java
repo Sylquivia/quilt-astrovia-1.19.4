@@ -13,9 +13,17 @@ import static io.github.sylquivia.astrovia.AstroviaBlocks.PLEASE_WORK;
 
 public class AstroviaItems {
 	public static final Item DANKIE_POO = new Item(new QuiltItemSettings());
+	public static final Item OXYGEN_BREAD = new Item(new QuiltItemSettings().food(
+		new FoodComponent.Builder()
+			.hunger(5)
+			.alwaysEdible()
+			.meat()
+			.build()
+	));
 
 	public static void register(ModContainer mod) {
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "dankie_poo"), DANKIE_POO);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oxygen_bread"), OXYGEN_BREAD);
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "please_work"), new BlockItem(PLEASE_WORK, new QuiltItemSettings()));
 
@@ -28,6 +36,7 @@ public class AstroviaItems {
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ITEMS).register(entries -> {
 			entries.addItem(DANKIE_POO);
+			entries.addItem(OXYGEN_BREAD);
 		});
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
