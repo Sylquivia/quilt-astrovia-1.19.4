@@ -1,4 +1,6 @@
 {
   "item.astrovia.dankie_poo": "Dankie Poo :3",
-  "block.astrovia.please_work": "BlockOlDank"
+  "block.astrovia.please_work": "BlockOlDank",
+  "itemGroup.astrovia.astrovia_items": "Astrovia Items",
+  "itemGroup.astrovia.astrovia_blocks": "Astrovia Blocks"
 }
