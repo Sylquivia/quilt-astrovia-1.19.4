@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "E#E",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "astrovia:dankie_poo"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "astrovia:please_work",
+    "count": 1
+  }
+}
