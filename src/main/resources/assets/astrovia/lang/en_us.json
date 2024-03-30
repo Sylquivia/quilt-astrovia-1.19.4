@@ -3,5 +3,10 @@
   "block.astrovia.please_work": "BlockOlDank",
   "itemGroup.astrovia.astrovia_items": "Astrovia Items",
   "itemGroup.astrovia.astrovia_blocks": "Astrovia Blocks",
-  "item.astrovia.oxygen_bread": "Oxygen Bread"
+  "itemGroup.astrovia.astrovia_armour": "Astrovia Armour",
+  "item.astrovia.oxygen_bread": "Oxygen Bread",
+  "item.astrovia.doobee_helmet": "Doobee Helmet",
+  "item.astrovia.doobee_chestplate": "Doobee Chestplate",
+  "item.astrovia.doobee_leggings": "Doobee Leggings",
+  "item.astrovia.doobee_boots": "Doobee Boots"
 }
