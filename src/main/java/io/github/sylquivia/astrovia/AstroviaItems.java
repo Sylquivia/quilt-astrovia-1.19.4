@@ -21,9 +21,20 @@ public class AstroviaItems {
 			.build()
 	));
 
+	public static final ArmorMaterial DOOBEE_ARMOUR_MATERIAL = new DoobeeArmourMaterial();
+	public static final Item DOOBEE_HELMET = new ArmorItem(DOOBEE_ARMOUR_MATERIAL, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings());
+	public static final Item DOOBEE_CHESTPLATE = new ArmorItem(DOOBEE_ARMOUR_MATERIAL, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings());
+	public static final Item DOOBEE_LEGGINGS = new ArmorItem(DOOBEE_ARMOUR_MATERIAL, ArmorItem.ArmorSlot.LEGGINGS, new QuiltItemSettings());
+	public static final Item DOOBEE_BOOTS = new ArmorItem(DOOBEE_ARMOUR_MATERIAL, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings());
+
 	public static void register(ModContainer mod) {
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "dankie_poo"), DANKIE_POO);
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oxygen_bread"), OXYGEN_BREAD);
+
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "doobee_helmet"), DOOBEE_HELMET);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "doobee_chestplate"), DOOBEE_CHESTPLATE);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "doobee_leggings"), DOOBEE_LEGGINGS);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "doobee_boots"), DOOBEE_BOOTS);
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "please_work"), new BlockItem(PLEASE_WORK, new QuiltItemSettings()));
 
@@ -33,6 +44,9 @@ public class AstroviaItems {
 		ItemGroup ASTROVIA_BLOCKS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_blocks"))
 			.icon(() -> new ItemStack(PLEASE_WORK))
 			.build();
+		ItemGroup ASTROVIA_ARMOUR = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_armour"))
+			.icon(() -> new ItemStack(DOOBEE_CHESTPLATE))
+			.build();
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ITEMS).register(entries -> {
 			entries.addItem(DANKIE_POO);
@@ -41,6 +55,13 @@ public class AstroviaItems {
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
 			entries.addItem(PLEASE_WORK.asItem());
+		});
+
+		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ARMOUR).register(entries -> {
+			entries.addItem(DOOBEE_HELMET);
+			entries.addItem(DOOBEE_CHESTPLATE);
+			entries.addItem(DOOBEE_LEGGINGS);
+			entries.addItem(DOOBEE_BOOTS);
 		});
 	}
 }
