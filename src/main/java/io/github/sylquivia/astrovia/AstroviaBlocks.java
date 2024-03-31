@@ -1,6 +1,5 @@
 package io.github.sylquivia.astrovia;
 
-import net.minecraft.block.AmethystBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
@@ -10,8 +9,8 @@ import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 
 public class AstroviaBlocks {
-	public static final Block PLEASE_WORK = new Block(QuiltBlockSettings.copyOf(Blocks.AMETHYST_BLOCK));
+	public static final Block FRACTIONATING_COLUMN = new Block(QuiltBlockSettings.copyOf(Blocks.AMETHYST_BLOCK));
 	public static void register(ModContainer mod) {
-		Registry.register(Registries.BLOCK, new Identifier(mod.metadata().id(), "please_work"), PLEASE_WORK);
+		Registry.register(Registries.BLOCK, new Identifier(mod.metadata().id(), "fractionating_column"), FRACTIONATING_COLUMN);
 	}
 }

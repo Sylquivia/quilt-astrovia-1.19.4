@@ -9,8 +9,4 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin {
-	@Inject(method = "init", at = @At("TAIL"))
-	public void onInit(CallbackInfo ci) {
-		Astrovia.LOGGER.info("This line is printed by the Astrovia mixin!");
-	}
 }

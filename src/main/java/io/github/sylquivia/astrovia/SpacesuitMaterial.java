@@ -6,9 +6,9 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
-public class DoobeeArmourMaterial implements ArmorMaterial {
-	private static final int[] DURABILITY = new int[]{100, 160, 100, 100};
-	private static final int[] PROTECTION = new int[]{2, 8, 4, 2};
+public class SpacesuitMaterial implements ArmorMaterial {
+	private static final int[] DURABILITY = new int[]{165, 240, 225, 195};
+	private static final int[] PROTECTION = new int[]{2, 5, 4, 1};
 	@Override
 	public int getDurability(ArmorItem.ArmorSlot slot) {
 		return DURABILITY[slot.getEquipmentSlot().getEntitySlotId()];
@@ -36,16 +36,16 @@ public class DoobeeArmourMaterial implements ArmorMaterial {
 
 	@Override
 	public String getName() {
-		return "doobee";
+		return "spacesuit";
 	}
 
 	@Override
 	public float getToughness() {
-		return 2;
+		return 0;
 	}
 
 	@Override
 	public float getKnockbackResistance() {
-		return 0.2f;
+		return 0;
 	}
 }

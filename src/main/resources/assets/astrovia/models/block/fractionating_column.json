@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "astrovia:block/please_work"
+    "all": "astrovia:block/fractionating_column"
   }
 }
