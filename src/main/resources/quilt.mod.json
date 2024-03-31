@@ -20,7 +20,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.sylquivia.astrovia.Astrovia"
+			"init": "io.github.sylquivia.astrovia.Astrovia",
+			"client_init": "io.github.sylquivia.astrovia.AstroviaClient"
 		},
 		"depends": [
 			{
