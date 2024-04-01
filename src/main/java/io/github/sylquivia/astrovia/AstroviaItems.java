@@ -9,8 +9,7 @@ import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
-import static io.github.sylquivia.astrovia.AstroviaBlocks.FRACTIONATING_COLUMN;
-import static io.github.sylquivia.astrovia.AstroviaBlocks.PIPE;
+import static io.github.sylquivia.astrovia.AstroviaBlocks.*;
 
 public class AstroviaItems {
 	public static final Item DANKIE_POO = new Item(new QuiltItemSettings());
@@ -39,6 +38,7 @@ public class AstroviaItems {
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "fractionating_column"), new BlockItem(FRACTIONATING_COLUMN, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "pipe"), new BlockItem(PIPE, new QuiltItemSettings()));
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "new_pipe"), new BlockItem(NEW_PIPE, new QuiltItemSettings()));
 
 
 		ItemGroup ASTROVIA_ITEMS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_items"))
@@ -59,6 +59,7 @@ public class AstroviaItems {
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
 			entries.addItem(FRACTIONATING_COLUMN.asItem());
 			entries.addItem(PIPE.asItem());
+			entries.addItem(NEW_PIPE.asItem());
 		});
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ARMOUR).register(entries -> {

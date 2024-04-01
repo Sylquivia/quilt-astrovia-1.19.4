@@ -12,5 +12,6 @@
   "item.astrovia.spacesuit_boots": "Spacesuit Boots",
 
   "block.astrovia.fractionating_column": "Fractionating Column",
-  "block.astrovia.pipe": "Pipe"
+  "block.astrovia.pipe": "Pipe",
+  "block.astrovia.new_pipe": "New Pipe"
 }

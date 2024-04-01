@@ -1,0 +1,11 @@
+{
+  "multipart": [
+    {
+      "apply": {"model": "astrovia:block/new_pipe"}
+    },
+    {
+      "apply": {"model": "astrovia:block/new_pipe_side"},
+      "when": {"north": "true"}
+    }
+  ]
+}
