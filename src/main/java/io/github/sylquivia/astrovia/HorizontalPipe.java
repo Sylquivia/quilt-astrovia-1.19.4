@@ -53,22 +53,30 @@ public class HorizontalPipe extends ConnectingBlock {
 
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-		if (world.getBlockState(pos.north()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.north()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.north()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.north()).isOf(Blocks.FURNACE)) {
 			if (!world.getBlockState(pos.north()).get(SOUTH)) {
 				world.setBlockState(pos.north(), world.getBlockState(pos.north()).with(SOUTH, true));
 			}
 		}
-		if (world.getBlockState(pos.east()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.east()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.east()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.east()).isOf(Blocks.FURNACE)) {
 			if (!world.getBlockState(pos.east()).get(WEST)) {
 				world.setBlockState(pos.east(), world.getBlockState(pos.east()).with(WEST, true));
 			}
 		}
-		if (world.getBlockState(pos.south()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.south()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.south()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.south()).isOf(Blocks.FURNACE)) {
 			if (!world.getBlockState(pos.south()).get(NORTH)) {
 				world.setBlockState(pos.south(), world.getBlockState(pos.south()).with(NORTH, true));
 			}
 		}
-		if (world.getBlockState(pos.west()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.west()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.west()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.west()).isOf(Blocks.FURNACE)) {
 			if (!world.getBlockState(pos.west()).get(EAST)) {
 				world.setBlockState(pos.west(), world.getBlockState(pos.west()).with(EAST, true));
 			}
@@ -77,22 +85,30 @@ public class HorizontalPipe extends ConnectingBlock {
 
 	@Override
 	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		if (world.getBlockState(pos.north()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.north()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.north()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.north()).isOf(Blocks.FURNACE)) {
 			if (world.getBlockState(pos.north()).get(SOUTH)) {
 				world.setBlockState(pos.north(), world.getBlockState(pos.north()).with(SOUTH, false));
 			}
 		}
-		if (world.getBlockState(pos.east()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.east()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.east()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.east()).isOf(Blocks.FURNACE)) {
 			if (world.getBlockState(pos.east()).get(WEST)) {
 				world.setBlockState(pos.east(), world.getBlockState(pos.east()).with(WEST, false));
 			}
 		}
-		if (world.getBlockState(pos.south()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.south()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.south()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.south()).isOf(Blocks.FURNACE)) {
 			if (world.getBlockState(pos.south()).get(NORTH)) {
 				world.setBlockState(pos.south(), world.getBlockState(pos.south()).with(NORTH, false));
 			}
 		}
-		if (world.getBlockState(pos.west()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
+		if (world.getBlockState(pos.west()).isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
+			world.getBlockState(pos.west()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
+			world.getBlockState(pos.west()).isOf(Blocks.FURNACE)) {
 			if (world.getBlockState(pos.west()).get(EAST)) {
 				world.setBlockState(pos.west(), world.getBlockState(pos.west()).with(EAST, false));
 			}
