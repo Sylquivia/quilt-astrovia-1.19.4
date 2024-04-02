@@ -9,6 +9,5 @@ public class AstroviaClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), AstroviaBlocks.FRACTIONATING_COLUMN);
-		BlockRenderLayerMap.put(RenderLayer.getCutout(), AstroviaBlocks.PIPE);
 	}
 }
