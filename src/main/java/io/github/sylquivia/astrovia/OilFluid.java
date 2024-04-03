@@ -1,12 +1,12 @@
 package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
-public class OilFluid extends FlowableFluid {
+public abstract class OilFluid extends FlowableFluid {
 	@Override
 	public Fluid getFlowing() {
 		return AstroviaFluids.FLOWING_OIL;
@@ -42,7 +42,7 @@ public class OilFluid extends FlowableFluid {
 
 	@Override
 	protected int getLevelDecreasePerBlock(WorldView world) {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -67,17 +67,12 @@ public class OilFluid extends FlowableFluid {
 
 	@Override
 	protected BlockState toBlockState(FluidState state) {
-		return AstroviaFluids.OIL_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
+		return AstroviaFluids.OIL_BLOCK.getDefaultState().with(FluidBlock.LEVEL, Integer.valueOf(getBlockStateLevel(state)));
 	}
 
 	@Override
-	public boolean isSource(FluidState state) {
-		return false;
-	}
-
-	@Override
-	public int getLevel(FluidState state) {
-		return state.getLevel();
+	public boolean matchesType(Fluid fluid) {
+		return fluid == getStill() || fluid == getFlowing();
 	}
 
 	public static class Flowing extends OilFluid {
@@ -88,25 +83,26 @@ public class OilFluid extends FlowableFluid {
 		}
 
 		@Override
-		public int getLevel(FluidState state) {
-			return state.get(LEVEL);
+		public boolean isSource(FluidState state) {
+			return false;
 		}
 
 		@Override
-		public boolean isSource(FluidState state) {
-			return false;
+		public int getLevel(FluidState state) {
+			return state.get(LEVEL);
 		}
 	}
 
 	public static class Still extends OilFluid {
-		@Override
-		public int getLevel(FluidState state) {
-			return 8;
-		}
 
 		@Override
 		public boolean isSource(FluidState state) {
 			return true;
+		}
+
+		@Override
+		public int getLevel(FluidState state) {
+			return 8;
 		}
 	}
 }
