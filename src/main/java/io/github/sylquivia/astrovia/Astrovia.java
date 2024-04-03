@@ -8,5 +8,6 @@ public class Astrovia implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		AstroviaItems.register(mod);
 		AstroviaBlocks.register(mod);
+		AstroviaFluids.register(mod);
 	}
 }

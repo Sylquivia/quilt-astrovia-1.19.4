@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "astrovia:item/dankie_poo"
+    "layer0": "astrovia:item/oil_bucket"
   }
 }

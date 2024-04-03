@@ -12,7 +12,6 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import static io.github.sylquivia.astrovia.AstroviaBlocks.*;
 
 public class AstroviaItems {
-	public static final Item DANKIE_POO = new Item(new QuiltItemSettings());
 	public static final Item OXYGEN_BREAD = new Item(new QuiltItemSettings().food(
 		new FoodComponent.Builder()
 			.hunger(5)
@@ -28,7 +27,6 @@ public class AstroviaItems {
 	public static final Item SPACESUIT_BOOTS = new ArmorItem(SPACESUIT_MATERIAL, ArmorItem.ArmorSlot.BOOTS, new QuiltItemSettings());
 
 	public static void register(ModContainer mod) {
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "dankie_poo"), DANKIE_POO);
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oxygen_bread"), OXYGEN_BREAD);
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "spacesuit_helmet"), SPACESUIT_HELMET);
@@ -42,7 +40,7 @@ public class AstroviaItems {
 
 
 		ItemGroup ASTROVIA_ITEMS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_items"))
-			.icon(() -> new ItemStack(DANKIE_POO))
+			.icon(() -> new ItemStack(OXYGEN_BREAD))
 			.build();
 		ItemGroup ASTROVIA_BLOCKS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_blocks"))
 			.icon(() -> new ItemStack(FRACTIONATING_COLUMN))
@@ -52,7 +50,6 @@ public class AstroviaItems {
 			.build();
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ITEMS).register(entries -> {
-			entries.addItem(DANKIE_POO);
 			entries.addItem(OXYGEN_BREAD);
 		});
 

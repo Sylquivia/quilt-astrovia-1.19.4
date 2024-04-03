@@ -2,6 +2,7 @@ package io.github.sylquivia.astrovia;
 
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -31,7 +32,7 @@ public class SpacesuitMaterial implements ArmorMaterial {
 
 	@Override
 	public Ingredient getRepairIngredient() {
-		return Ingredient.ofItems(AstroviaItems.DANKIE_POO);
+		return Ingredient.ofItems(Items.BREAD);
 	}
 
 	@Override
