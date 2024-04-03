@@ -42,7 +42,7 @@ public abstract class OilFluid extends FlowableFluid {
 
 	@Override
 	protected int getLevelDecreasePerBlock(WorldView world) {
-		return 2;
+		return 1;
 	}
 
 	@Override
@@ -57,12 +57,12 @@ public abstract class OilFluid extends FlowableFluid {
 
 	@Override
 	public int getTickRate(WorldView world) {
-		return 10;
+		return 20;
 	}
 
 	@Override
 	protected float getBlastResistance() {
-		return 100;
+		return 50;
 	}
 
 	@Override

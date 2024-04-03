@@ -51,6 +51,7 @@ public class AstroviaItems {
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ITEMS).register(entries -> {
 			entries.addItem(OXYGEN_BREAD);
+			entries.addItem(AstroviaFluids.OIL_BUCKET);
 		});
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
