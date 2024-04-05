@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "astrovia:block/oil_heater", "uvlock": true},
+    "facing=east": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 90},
+    "facing=south": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 180},
+    "facing=west": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 270}
+  }
+}
