@@ -15,8 +15,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class OilHeater extends HorizontalFacingBlock {
-	protected OilHeater(Settings settings) {
+public class GooBitty extends HorizontalFacingBlock {
+	protected GooBitty(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
 	}
