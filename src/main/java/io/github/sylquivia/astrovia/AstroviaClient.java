@@ -2,6 +2,7 @@ package io.github.sylquivia.astrovia;
 
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import org.quiltmc.loader.api.ModContainer;
@@ -18,5 +19,7 @@ public class AstroviaClient implements ClientModInitializer {
 			new Identifier("minecraft:block/water_flow"),
 			0x1f1f1f
 		));
+
+		HandledScreens.register(Astrovia.OIL_HEATER_SCREEN_HANDLER, OilHeaterScreen::new);
 	}
 }

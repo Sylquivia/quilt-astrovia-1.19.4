@@ -38,7 +38,7 @@ public class AstroviaItems {
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "horizontal_pipe"), new BlockItem(HORIZONTAL_PIPE, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "directional_pipe"), new BlockItem(DIRECTIONAL_PIPE, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "goo_bitty"), new BlockItem(GOO_BITTY, new QuiltItemSettings()));
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oil_heater"), new BlockItem(OIL_HEATER_BLOCK, new QuiltItemSettings()));
+		Registry.register(Registries.ITEM, OIL_HEATER, new BlockItem(OIL_HEATER_BLOCK, new QuiltItemSettings()));
 
 
 		ItemGroup ASTROVIA_ITEMS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_items"))
