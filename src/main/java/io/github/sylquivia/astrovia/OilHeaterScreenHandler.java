@@ -12,12 +12,12 @@ public class OilHeaterScreenHandler extends ScreenHandler {
 	private final Inventory inventory;
 
 	public OilHeaterScreenHandler(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new SimpleInventory(9));
+		this(syncId, playerInventory, new SimpleInventory(2));
 	}
 
 	public OilHeaterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
 		super(Astrovia.OIL_HEATER_SCREEN_HANDLER, syncId);
-		checkSize(inventory, 9);
+		checkSize(inventory, 2);
 		this.inventory = inventory;
 
 		inventory.onOpen(playerInventory.player);
@@ -25,14 +25,11 @@ public class OilHeaterScreenHandler extends ScreenHandler {
 		int i;
 		int j;
 
-		for (i = 0 ; i < 3 ; i ++) {
-			for (j = 0 ; j < 3 ; j ++) {
-				this.addSlot(new Slot(inventory, j + i * 3, 62 + j * 18, 17 + i * 18));
-			}
-		}
+		addSlot(new Slot(inventory, 0, 80, 17));
+		addSlot(new Slot(inventory, 1, 80, 53));
 
 		for (i = 0 ; i < 3 ; i ++) {
-			for (j = 0; j < 9; j++) {
+			for (j = 0; j < 9; j ++) {
 				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}

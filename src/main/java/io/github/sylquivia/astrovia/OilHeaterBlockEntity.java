@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
-	private final DefaultedList <ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+	private final DefaultedList <ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 	public OilHeaterBlockEntity(BlockPos pos, BlockState state) {
 		super(AstroviaBlocks.OIL_HEATER_BLOCK_ENTITY, pos, state);
 	}
