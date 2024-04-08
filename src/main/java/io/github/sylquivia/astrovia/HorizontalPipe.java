@@ -33,7 +33,7 @@ public class HorizontalPipe extends ConnectingBlock {
 		return state.isOf(AstroviaBlocks.HORIZONTAL_PIPE)
 			|| state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE)
 			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
-			|| state.isOf(Blocks.FURNACE);
+			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 
 	@Nullable

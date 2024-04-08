@@ -27,11 +27,15 @@ public class DirectionalPipe extends ConnectingBlock {
 
 	private boolean canConnectHorizontally(BlockState state) {
 		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE)
-			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE);
+			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE)
+			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
+			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 
 	private boolean canConnectVertically(BlockState state) {
-		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE);
+		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE)
+			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
+			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 
 	@Nullable
