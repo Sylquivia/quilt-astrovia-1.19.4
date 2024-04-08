@@ -32,15 +32,13 @@ public class OilHeaterScreenHandler extends ScreenHandler {
 		}
 
 		for (i = 0 ; i < 3 ; i ++) {
-			for (j = 0; j < 3; j++) {
+			for (j = 0; j < 9; j++) {
 				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
 		for (i = 0 ; i < 9 ; i ++) {
-			for (j = 0 ; j < 3 ; j ++) {
-				this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-			}
+			this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
 		}
 	}
 

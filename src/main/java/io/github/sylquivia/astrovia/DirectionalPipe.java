@@ -1,14 +1,12 @@
 package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -27,11 +25,13 @@ public class DirectionalPipe extends ConnectingBlock {
 		);
 	}
 
-	private boolean canConnect(BlockState state) {
-		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			state.isOf(AstroviaBlocks.HORIZONTAL_PIPE) ||
-			state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN) ||
-			state.isOf(Blocks.FURNACE);
+	private boolean canConnectHorizontally(BlockState state) {
+		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE)
+			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE);
+	}
+
+	private boolean canConnectVertically(BlockState state) {
+		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE);
 	}
 
 	@Nullable
@@ -47,88 +47,25 @@ public class DirectionalPipe extends ConnectingBlock {
 		BlockState blockState6 = blockView.getBlockState(blockPos.down());
 
 		return (Objects.requireNonNull(super.getPlacementState(ctx)))
-			.with(NORTH, canConnect(blockState))
-			.with(EAST, canConnect(blockState2))
-			.with(SOUTH, canConnect(blockState3))
-			.with(WEST, canConnect(blockState4))
-			.with(UP, canConnect(blockState5))
-			.with(DOWN, canConnect(blockState6));
+			.with(NORTH, canConnectHorizontally(blockState))
+			.with(EAST, canConnectHorizontally(blockState2))
+			.with(SOUTH, canConnectHorizontally(blockState3))
+			.with(WEST, canConnectHorizontally(blockState4))
+			.with(UP, canConnectVertically(blockState5))
+			.with(DOWN, canConnectVertically(blockState6));
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-		if (world.getBlockState(pos.north()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.north()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (!world.getBlockState(pos.north()).get(SOUTH)) {
-				world.setBlockState(pos.north(), world.getBlockState(pos.north()).with(SOUTH, true));
-			}
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+		if (canConnectHorizontally(neighborState) && direction.getAxis().isHorizontal()) {
+			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), true), Block.NOTIFY_LISTENERS);
+		} else if (canConnectVertically(neighborState) && direction.getAxis().isVertical()) {
+			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), true), Block.NOTIFY_LISTENERS);
+		} else {
+			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), false), Block.NOTIFY_LISTENERS);
 		}
-		if (world.getBlockState(pos.east()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.east()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (!world.getBlockState(pos.east()).get(WEST)) {
-				world.setBlockState(pos.east(), world.getBlockState(pos.east()).with(WEST, true));
-			}
-		}
-		if (world.getBlockState(pos.south()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.south()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (!world.getBlockState(pos.south()).get(NORTH)) {
-				world.setBlockState(pos.south(), world.getBlockState(pos.south()).with(NORTH, true));
-			}
-		}
-		if (world.getBlockState(pos.west()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.west()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (!world.getBlockState(pos.west()).get(EAST)) {
-				world.setBlockState(pos.west(), world.getBlockState(pos.west()).with(EAST, true));
-			}
-		}
-		if (world.getBlockState(pos.up()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE)) {
-			if (!world.getBlockState(pos.up()).get(DOWN)) {
-				world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(DOWN, true));
-			}
-		}
-		if (world.getBlockState(pos.down()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE)) {
-			if (!world.getBlockState(pos.down()).get(UP)) {
-				world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(UP, true));
-			}
-		}
-	}
 
-	@Override
-	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		if (world.getBlockState(pos.north()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.north()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (world.getBlockState(pos.north()).get(SOUTH)) {
-				world.setBlockState(pos.north(), world.getBlockState(pos.north()).with(SOUTH, false));
-			}
-		}
-		if (world.getBlockState(pos.east()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.east()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (world.getBlockState(pos.east()).get(WEST)) {
-				world.setBlockState(pos.east(), world.getBlockState(pos.east()).with(WEST, false));
-			}
-		}
-		if (world.getBlockState(pos.south()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.south()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (world.getBlockState(pos.south()).get(NORTH)) {
-				world.setBlockState(pos.south(), world.getBlockState(pos.south()).with(NORTH, false));
-			}
-		}
-		if (world.getBlockState(pos.west()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE) ||
-			world.getBlockState(pos.west()).isOf(AstroviaBlocks.HORIZONTAL_PIPE)) {
-			if (world.getBlockState(pos.west()).get(EAST)) {
-				world.setBlockState(pos.west(), world.getBlockState(pos.west()).with(EAST, false));
-			}
-		}
-		if (world.getBlockState(pos.up()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE)) {
-			if (world.getBlockState(pos.up()).get(DOWN)) {
-				world.setBlockState(pos.up(), world.getBlockState(pos.up()).with(DOWN, false));
-			}
-		}
-		if (world.getBlockState(pos.down()).isOf(AstroviaBlocks.DIRECTIONAL_PIPE)) {
-			if (world.getBlockState(pos.down()).get(UP)) {
-				world.setBlockState(pos.down(), world.getBlockState(pos.down()).with(UP, false));
-			}
-		}
+		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
 	@Override
