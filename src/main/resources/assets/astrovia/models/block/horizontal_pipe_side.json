@@ -1,16 +1,14 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "astrovia:block/horizontal_pipe",
-    "all": "astrovia:block/horizontal_pipe"
+    "particle": "astrovia:block/horizontal_pipe_side",
+    "all": "astrovia:block/horizontal_pipe_side"
   },
   "elements": [
     {
       "from": [4, 4, 0],
       "to": [12, 12, 4],
       "faces": {
-        "north": {"uv": [4, 4, 12, 12], "texture": "#all"},
-        "south": {"uv": [4, 4, 12, 12], "texture": "#all"},
         "east": {"uv": [12, 4, 16, 12], "texture": "#all"},
         "west": {"uv": [0, 4, 4, 12], "texture": "#all"},
         "down": {"uv": [4, 12, 12, 16], "texture": "#all"},
