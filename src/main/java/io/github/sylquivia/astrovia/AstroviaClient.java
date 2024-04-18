@@ -13,7 +13,7 @@ public class AstroviaClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), AstroviaBlocks.FRACTIONATING_COLUMN);
-		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), AstroviaBlocks.DIRECTIONAL_PIPE);
+		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK);
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), AstroviaBlocks.HORIZONTAL_PIPE);
 
 		FluidRenderHandlerRegistry.INSTANCE.register(AstroviaFluids.OIL, AstroviaFluids.FLOWING_OIL, new SimpleFluidRenderHandler(

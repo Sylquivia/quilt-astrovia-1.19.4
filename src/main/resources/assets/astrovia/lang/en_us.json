@@ -13,7 +13,7 @@
 
   "block.astrovia.fractionating_column": "Fractionating Column",
   "block.astrovia.horizontal_pipe": "Horizontal Pipe",
-  "block.astrovia.directional_pipe": "Directional Pipe",
   "block.astrovia.goo_bitty": "goo bitty",
-  "block.astrovia.oil_heater_block": "Oil Heater"
+  "block.astrovia.oil_heater_block": "Oil Heater",
+  "block.astrovia.directional_pipe_block": "Directional Pipe"
 }
