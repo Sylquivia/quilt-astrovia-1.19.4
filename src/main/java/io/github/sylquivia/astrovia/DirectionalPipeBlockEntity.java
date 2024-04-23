@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class DirectionalPipeBlockEntity extends BlockEntity {
 	public int fluid = 0;
+	public int gas = 0;
 
 	public DirectionalPipeBlockEntity(BlockPos pos, BlockState state) {
 		super(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK_ENTITY, pos, state);
@@ -15,6 +16,7 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 	@Override
 	protected void writeNbt(NbtCompound nbt) {
 		nbt.putInt("fluid", fluid);
+		nbt.putInt("gas", gas);
 		super.writeNbt(nbt);
 	}
 
@@ -22,5 +24,6 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
 		fluid = nbt.getInt("fluid");
+		gas = nbt.getInt("gas");
 	}
 }
