@@ -17,11 +17,10 @@ public class AstroviaClient implements ClientModInitializer {
 		BlockRenderLayerMap.put(RenderLayer.getTranslucent(), AstroviaBlocks.HORIZONTAL_PIPE);
 
 		FluidRenderHandlerRegistry.INSTANCE.register(AstroviaFluids.OIL, AstroviaFluids.FLOWING_OIL, new SimpleFluidRenderHandler(
-			new Identifier("minecraft:block/water_still"),
-			new Identifier("minecraft:block/water_flow"),
-			0x1f1f1f
+			new Identifier("astrovia:block/oil_still"),
+			new Identifier("astrovia:block/oil_flow")
 		));
 
-		HandledScreens.register(Astrovia.OIL_HEATER_SCREEN_HANDLER, OilHeaterScreen::new);
+		HandledScreens.register(Astrovia.OIL_HEATER_SCREEN_HANDLER, OilHeaterScreen :: new);
 	}
 }

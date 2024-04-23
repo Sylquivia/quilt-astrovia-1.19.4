@@ -17,10 +17,10 @@ public class AstroviaBlocks {
 	public static final Block GOO_BITTY = new GooBitty(QuiltBlockSettings.copyOf(Blocks.STONE));
 	public static Identifier OIL_HEATER = new Identifier("astrovia", "oil_heater_block");
 	public static final Block OIL_HEATER_BLOCK = new OilHeaterBlock(QuiltBlockSettings.copyOf(Blocks.CHEST));
-	public static final BlockEntityType<OilHeaterBlockEntity> OIL_HEATER_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(OilHeaterBlockEntity::new, OIL_HEATER_BLOCK).build(null);
+	public static final BlockEntityType<OilHeaterBlockEntity> OIL_HEATER_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(OilHeaterBlockEntity :: new, OIL_HEATER_BLOCK).build(null);
 	public static Identifier DIRECTIONAL_PIPE = new Identifier("astrovia", "directional_pipe_block");
 	public static final Block DIRECTIONAL_PIPE_BLOCK = new DirectionalPipeBlock(QuiltBlockSettings.copyOf(Blocks.CHEST));
-	public static final BlockEntityType<DirectionalPipeBlockEntity> DIRECTIONAL_PIPE_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(DirectionalPipeBlockEntity::new, DIRECTIONAL_PIPE_BLOCK).build(null);
+	public static final BlockEntityType<DirectionalPipeBlockEntity> DIRECTIONAL_PIPE_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(DirectionalPipeBlockEntity :: new, DIRECTIONAL_PIPE_BLOCK).build(null);
 	public static void register(ModContainer mod) {
 
 		Registry.register(Registries.BLOCK, new Identifier(mod.metadata().id(), "fractionating_column"), FRACTIONATING_COLUMN);
