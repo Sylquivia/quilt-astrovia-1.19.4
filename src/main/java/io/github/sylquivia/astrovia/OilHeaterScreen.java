@@ -17,7 +17,7 @@ public class OilHeaterScreen extends HandledScreen <OilHeaterScreenHandler> {
 
 	@Override
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShader(GameRenderer :: getPositionTexShader);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		RenderSystem.setShaderTexture(0, TEXTURE);
 
@@ -25,6 +25,40 @@ public class OilHeaterScreen extends HandledScreen <OilHeaterScreenHandler> {
 		int y = (height - backgroundHeight) / 2;
 
 		drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+
+		switch (this.handler.getFluid()) {
+			case 1:
+				drawTexture(matrices, x + 48, y + 53, 176, 67, 8, 16);
+				break;
+			case 2:
+				drawTexture(matrices, x + 48, y + 35, 176, 49, 8, 34);
+				break;
+			case 3:
+				drawTexture(matrices, x + 48, y + 17, 176, 31, 8, 52);
+				break;
+		}
+
+		switch (this.handler.getGas()) {
+			case 1:
+				drawTexture(matrices, x + 120, y + 17, 184, 31, 8, 17);
+				break;
+			case 2:
+				drawTexture(matrices, x + 120, y + 17, 184, 31, 8, 35);
+				break;
+			case 3:
+				drawTexture(matrices, x + 120, y + 17, 184, 31, 8, 52);
+				break;
+		}
+
+		if (this.handler.getProgress() > 0 && this.handler.getBurnTime() > 0 && this.handler.getFluid() > 0 && this.handler.getGas() < 3) {
+			int progressWidth = 24 * this.handler.getProgress() / this.handler.getMaxProgress();
+			drawTexture(matrices, x + 76, y + 17, 176, 14, progressWidth, 17);
+		}
+
+		if (this.handler.getBurnTime() > 0) {
+			int burnTimeHeight = 14 * this.handler.getBurnTime() / this.handler.getMaxBurnTime();
+			drawTexture(matrices, x + 81, y + 37 + (12 - burnTimeHeight), 176, 12 - burnTimeHeight, 14, burnTimeHeight + 1);
+		}
 	}
 
 	@Override
@@ -39,4 +73,6 @@ public class OilHeaterScreen extends HandledScreen <OilHeaterScreenHandler> {
 		super.init();
 		titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
 	}
+
+
 }

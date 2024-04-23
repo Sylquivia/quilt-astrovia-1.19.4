@@ -6,7 +6,7 @@ import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
 public class Astrovia implements ModInitializer {
-	public static final ScreenHandlerType <OilHeaterScreenHandler> OIL_HEATER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(AstroviaBlocks.OIL_HEATER, OilHeaterScreenHandler::new);
+	public static final ScreenHandlerType <OilHeaterScreenHandler> OIL_HEATER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(AstroviaBlocks.OIL_HEATER, OilHeaterScreenHandler :: new);
 
     @Override
 	public void onInitialize(ModContainer mod) {

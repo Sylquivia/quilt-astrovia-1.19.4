@@ -55,4 +55,10 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 			super.onStateReplaced(state, world, pos, newState, moved);
 		}
 	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		return checkType(type, AstroviaBlocks.OIL_HEATER_BLOCK_ENTITY, (OilHeaterBlockEntity :: tick));
+	}
 }

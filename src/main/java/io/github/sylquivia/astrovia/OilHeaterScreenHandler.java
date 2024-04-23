@@ -5,31 +5,35 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class OilHeaterScreenHandler extends ScreenHandler {
 	private final Inventory inventory;
+	public final PropertyDelegate propertyDelegate;
 
 	public OilHeaterScreenHandler(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new SimpleInventory(2));
+		this(syncId, playerInventory, new SimpleInventory(3), new ArrayPropertyDelegate(6));
 	}
 
-	public OilHeaterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+	public OilHeaterScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
 		super(Astrovia.OIL_HEATER_SCREEN_HANDLER, syncId);
-		checkSize(inventory, 2);
+        checkSize(inventory, 3);
 		this.inventory = inventory;
+		this.propertyDelegate = propertyDelegate;
 
 		inventory.onOpen(playerInventory.player);
 
-		int i;
-		int j;
+		addSlot(new Slot(inventory, 0, 80, 53));
+		addSlot(new Slot(inventory, 1, 26, 35));
+		addSlot(new Slot(inventory, 2, 134, 35));
 
-		addSlot(new Slot(inventory, 0, 80, 17));
-		addSlot(new Slot(inventory, 1, 80, 53));
+		int i, j;
 
 		for (i = 0 ; i < 3 ; i ++) {
-			for (j = 0; j < 9; j ++) {
+			for (j = 0 ; j < 9 ; j ++) {
 				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
@@ -37,6 +41,8 @@ public class OilHeaterScreenHandler extends ScreenHandler {
 		for (i = 0 ; i < 9 ; i ++) {
 			this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
 		}
+
+		this.addProperties(propertyDelegate);
 	}
 
 	@Override
@@ -68,5 +74,29 @@ public class OilHeaterScreenHandler extends ScreenHandler {
 	@Override
 	public boolean canUse(PlayerEntity player) {
 		return this.inventory.canPlayerUse(player);
+	}
+
+	public int getFluid() {
+		return this.propertyDelegate.get(0);
+	}
+
+	public int getGas() {
+		return this.propertyDelegate.get(1);
+	}
+
+	public int getBurnTime() {
+		return this.propertyDelegate.get(2);
+	}
+
+	public int getMaxBurnTime() {
+		return this.propertyDelegate.get(3);
+	}
+
+	public int getProgress() {
+		return this.propertyDelegate.get(4);
+	}
+
+	public int getMaxProgress() {
+		return this.propertyDelegate.get(5);
 	}
 }

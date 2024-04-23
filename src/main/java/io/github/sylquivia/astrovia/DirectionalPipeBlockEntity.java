@@ -21,7 +21,6 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
-
 		fluid = nbt.getInt("fluid");
 	}
 }

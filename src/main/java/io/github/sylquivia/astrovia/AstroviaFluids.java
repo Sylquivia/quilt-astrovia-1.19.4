@@ -17,7 +17,7 @@ public class AstroviaFluids {
 	public static FlowableFluid OIL = new OilFluid.Still();
 	public static FlowableFluid FLOWING_OIL = new OilFluid.Flowing();
 	public static Block OIL_BLOCK = new FluidBlock(AstroviaFluids.OIL, QuiltBlockSettings.copyOf(Blocks.WATER));
-	public static Item OIL_BUCKET = new BucketItem(AstroviaFluids.OIL, new QuiltItemSettings());
+	public static Item OIL_BUCKET = new BucketItem(AstroviaFluids.OIL, new QuiltItemSettings().maxCount(1));
 
 	public static void register(ModContainer mod) {
 		Registry.register(Registries.FLUID, new Identifier(mod.metadata().id(), "oil"), OIL);
