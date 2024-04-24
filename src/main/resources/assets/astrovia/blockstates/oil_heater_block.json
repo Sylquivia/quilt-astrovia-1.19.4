@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": {"model": "astrovia:block/oil_heater", "uvlock": true},
-    "facing=east": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 90},
-    "facing=south": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 180},
-    "facing=west": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 270}
+    "facing=north,lit=false": {"model": "astrovia:block/oil_heater", "uvlock": true},
+    "facing=north,lit=true": {"model": "astrovia:block/oil_heater_on", "uvlock": true},
+    "facing=east,lit=false": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 90},
+    "facing=east,lit=true": {"model": "astrovia:block/oil_heater_on", "uvlock": true, "y": 90},
+    "facing=south,lit=false": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 180},
+    "facing=south,lit=true": {"model": "astrovia:block/oil_heater_on", "uvlock": true, "y": 180},
+    "facing=west,lit=false": {"model": "astrovia:block/oil_heater", "uvlock": true, "y": 270},
+    "facing=west,lit=true": {"model": "astrovia:block/oil_heater_on", "uvlock": true, "y": 270}
   }
 }

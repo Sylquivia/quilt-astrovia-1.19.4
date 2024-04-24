@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "astrovia:block/oil_heater_side",
+    "front": "astrovia:block/oil_heater_front_on",
+    "side": "astrovia:block/oil_heater_side"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"texture": "#front", "cullface": "north"},
+        "south": {"texture": "#side", "cullface": "south"},
+        "east": {"texture": "#side", "cullface": "east"},
+        "west": {"texture": "#side", "cullface": "west"},
+        "down": {"texture": "#side", "cullface": "down"},
+        "up": {"texture": "#side", "cullface": "up"}
+      }
+    }
+  ]
+}

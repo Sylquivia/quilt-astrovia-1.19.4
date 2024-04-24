@@ -13,9 +13,5 @@ public class Astrovia implements ModInitializer {
 		AstroviaItems.register(mod);
 		AstroviaBlocks.register(mod);
 		AstroviaFluids.register(mod);
-
-		for (int i = 0 ; i < 2147483647 ; i ++) {
-			System.out.println("nice #" + i);
-		}
 	}
 }

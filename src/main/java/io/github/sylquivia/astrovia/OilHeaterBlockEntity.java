@@ -1,5 +1,6 @@
 package io.github.sylquivia.astrovia;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,10 +22,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import static io.github.sylquivia.astrovia.OilHeaterBlock.LIT;
+
 public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 	private final DefaultedList <ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 	public final int maxProgress = 200;
-	public int fluid, gas, burnTime, maxBurnTime, progress;
+	public int fluid, gas, burnTime, maxBurnTime, progress; // make fluid and gas properties not just nbt k thx
 	protected final PropertyDelegate propertyDelegate = new PropertyDelegate() {
 		@Override
 		public int get(int index) {
@@ -86,6 +89,9 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		Inventories.readNbt(nbt, inventory);
 		fluid = nbt.getInt("fluid");
 		gas = nbt.getInt("gas");
+		burnTime = nbt.getInt("burnTime");
+		maxBurnTime = nbt.getInt("maxBurnTime");
+		progress = nbt.getInt("progress");
 	}
 
 	@Override
@@ -93,6 +99,9 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		Inventories.writeNbt(nbt, inventory);
 		nbt.putInt("fluid", fluid);
 		nbt.putInt("gas", gas);
+		nbt.putInt("burnTime", burnTime);
+		nbt.putInt("maxBurnTime", maxBurnTime);
+		nbt.putInt("progress", progress);
 		super.writeNbt(nbt);
 	}
 
@@ -100,6 +109,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		if (blockEntity.getStack(1).isOf(AstroviaFluids.OIL_BUCKET) && blockEntity.fluid < 3) {
 			blockEntity.setStack(1, Items.BUCKET.getDefaultStack());
 			blockEntity.fluid ++;
+			System.out.println(blockEntity.progress + " progress, " + blockEntity.fluid + " fluid, " + blockEntity.gas + " gas");
 		}
 
 		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && blockEntity.fluid > 0 && blockEntity.gas < 3) {
@@ -109,6 +119,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		}
 
 		if (blockEntity.progress >= blockEntity.maxProgress) {
+			System.out.println(blockEntity.progress + " progress, " + blockEntity.fluid + " fluid, " + blockEntity.gas + " gas");
 			blockEntity.progress = 0;
 			blockEntity.fluid --;
 			blockEntity.gas ++;
@@ -116,9 +127,16 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 
 		if (blockEntity.burnTime > 0) {
 			blockEntity.burnTime --;
-			blockEntity.progress ++;
-		} else {
-			blockEntity.progress = 0;
+
+			world.setBlockState(pos, state.with(LIT, true));
+
+			if (blockEntity.fluid > 0) {
+				blockEntity.progress ++;
+			}
+
+			if (blockEntity.burnTime <= 0) {
+				world.setBlockState(pos, state.with(LIT, false));
+			}
 		}
 
 		if (blockEntity.getStack(2).isOf(Items.BUCKET) && blockEntity.gas > 0) {
