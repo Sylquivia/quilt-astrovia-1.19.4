@@ -1,5 +1,6 @@
 package io.github.sylquivia.astrovia;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -108,7 +109,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 			blockEntity.setStack(1, Items.BUCKET.getDefaultStack());
 			blockEntity.fluid ++;
 
-			world.setBlockState(pos, state.with(FLUID, blockEntity.fluid));
+			world.setBlockState(pos, state.with(FLUID, blockEntity.fluid), Block.NOTIFY_LISTENERS);
 		}
 
 		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && blockEntity.fluid > 0 && blockEntity.gas < 3) {
@@ -126,7 +127,8 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 
 			world.setBlockState(pos, state
 				.with(FLUID, blockEntity.fluid)
-				.with(GAS, blockEntity.gas)
+				.with(GAS, blockEntity.gas),
+				Block.NOTIFY_LISTENERS
 			);
 		}
 
@@ -148,7 +150,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 			blockEntity.setStack(2, AstroviaItems.OXYGEN_BREAD.getDefaultStack());
 			blockEntity.gas --;
 
-			world.setBlockState(pos, state.with(GAS, blockEntity.gas));
+			world.setBlockState(pos, state.with(GAS, blockEntity.gas), Block.NOTIFY_LISTENERS);
 		}
 	}
 

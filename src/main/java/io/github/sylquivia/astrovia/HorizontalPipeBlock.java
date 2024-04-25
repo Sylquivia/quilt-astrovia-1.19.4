@@ -7,6 +7,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -20,6 +21,8 @@ import static net.minecraft.block.ConnectingBlock.*;
 
 public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggable, BlockEntityProvider {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+	public static final IntProperty FLUID = AstroviaProperties.FLUID_3;
+	public static final IntProperty GAS = AstroviaProperties.GAS_3;
 
 	public HorizontalPipeBlock(Settings settings) {
 		super(settings);
@@ -28,9 +31,9 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			.with(EAST, false)
 			.with(SOUTH, false)
 			.with(WEST, false)
-			//.with(UP, false)
-			//.with(DOWN, false)
 			.with(WATERLOGGED, false)
+			.with(FLUID, 0)
+			.with(GAS, 0)
 		);
 	}
 
@@ -74,6 +77,11 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
+		if (neighborState.get(GAS) > 0) {
+			world.setBlockState(pos, state.with(GAS, neighborState.get(GAS)), Block.NOTIFY_LISTENERS);
+			world.setBlockState(neighborPos, neighborState.with(GAS, neighborState.get(GAS) - 1), Block.NOTIFY_LISTENERS);
+		}
+
 		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
@@ -84,7 +92,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(NORTH, EAST, SOUTH, WEST, /*UP, DOWN, */WATERLOGGED);
+		builder.add(NORTH, EAST, SOUTH, WEST, WATERLOGGED, FLUID, GAS);
 	}
 
 	@Nullable
