@@ -21,8 +21,8 @@ import org.jetbrains.annotations.Nullable;
 public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvider {
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
-	public static final IntProperty FLUID = IntProperty.of("fluid", 0, 3);
-	public static final IntProperty GAS = IntProperty.of("gas", 0, 3);
+	public static final IntProperty FLUID = AstroviaProperties.FLUID_3;
+	public static final IntProperty GAS = AstroviaProperties.GAS_3;
 	protected OilHeaterBlock(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState()
