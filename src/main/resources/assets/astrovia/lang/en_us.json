@@ -12,8 +12,8 @@
   "item.astrovia.spacesuit_boots": "Spacesuit Boots",
 
   "block.astrovia.fractionating_column": "Fractionating Column",
-  "block.astrovia.horizontal_pipe": "Horizontal Pipe",
   "block.astrovia.goo_bitty": "goo bitty",
   "block.astrovia.oil_heater_block": "Oil Heater",
-  "block.astrovia.directional_pipe_block": "Directional Pipe"
+  "block.astrovia.directional_pipe_block": "Directional Pipe",
+  "block.astrovia.horizontal_pipe_block": "Horizontal Pipe"
 }

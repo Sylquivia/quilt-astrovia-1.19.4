@@ -1,6 +1,7 @@
 package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -9,28 +10,32 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class HorizontalPipe extends ConnectingBlock implements Waterloggable {
+import static net.minecraft.block.ConnectingBlock.*;
+
+public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggable, BlockEntityProvider {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-	public HorizontalPipe(Settings settings) {
-		super(0.25f, settings);
+	public HorizontalPipeBlock(Settings settings) {
+		super(settings);
 		setDefaultState(getDefaultState()
 			.with(NORTH, false)
 			.with(EAST, false)
 			.with(SOUTH, false)
 			.with(WEST, false)
-			.with(UP, false)
-			.with(DOWN, false)
+			//.with(UP, false)
+			//.with(DOWN, false)
 			.with(WATERLOGGED, false)
 		);
 	}
 
 	private boolean canConnectHorizontally(BlockState state) {
-		return state.isOf(AstroviaBlocks.HORIZONTAL_PIPE)
+		return state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK)
 			|| state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
 			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
 			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
@@ -79,6 +84,22 @@ public class HorizontalPipe extends ConnectingBlock implements Waterloggable {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED);
+		builder.add(NORTH, EAST, SOUTH, WEST, /*UP, DOWN, */WATERLOGGED);
+	}
+
+	@Nullable
+	@Override
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new HorizontalPipeBlockEntity(pos, state);
+	}
+
+	@Override
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
+	}
+
+	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+		return VoxelShapes.cuboid(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 	}
 }

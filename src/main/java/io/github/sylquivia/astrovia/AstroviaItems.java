@@ -35,10 +35,11 @@ public class AstroviaItems {
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "spacesuit_boots"), SPACESUIT_BOOTS);
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "fractionating_column"), new BlockItem(FRACTIONATING_COLUMN, new QuiltItemSettings()));
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "horizontal_pipe"), new BlockItem(HORIZONTAL_PIPE, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "goo_bitty"), new BlockItem(GOO_BITTY, new QuiltItemSettings()));
+
 		Registry.register(Registries.ITEM, OIL_HEATER, new BlockItem(OIL_HEATER_BLOCK, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, DIRECTIONAL_PIPE, new BlockItem(DIRECTIONAL_PIPE_BLOCK, new QuiltItemSettings()));
+		Registry.register(Registries.ITEM, HORIZONTAL_PIPE, new BlockItem(HORIZONTAL_PIPE_BLOCK, new QuiltItemSettings()));
 
 
 		ItemGroup ASTROVIA_ITEMS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_items"))
@@ -58,11 +59,11 @@ public class AstroviaItems {
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
 			entries.addItem(FRACTIONATING_COLUMN.asItem());
-			entries.addItem(HORIZONTAL_PIPE.asItem());
 			entries.addItem(GOO_BITTY.asItem());
 
 			entries.addItem(OIL_HEATER_BLOCK.asItem());
 			entries.addItem(DIRECTIONAL_PIPE_BLOCK.asItem());
+			entries.addItem(HORIZONTAL_PIPE_BLOCK.asItem());
 		});
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ARMOUR).register(entries -> {

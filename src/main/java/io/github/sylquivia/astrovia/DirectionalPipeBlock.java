@@ -2,10 +2,8 @@ package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -38,7 +36,7 @@ public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggab
 
 	private boolean canConnectHorizontally(BlockState state) {
 		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
-			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE)
+			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK)
 			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
 			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
