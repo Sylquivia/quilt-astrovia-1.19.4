@@ -1,8 +1,6 @@
 package io.github.sylquivia.astrovia;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -22,7 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static io.github.sylquivia.astrovia.OilHeaterBlock.LIT;
+import static io.github.sylquivia.astrovia.OilHeaterBlock.*;
 
 public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 	private final DefaultedList <ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
@@ -109,32 +107,39 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		if (blockEntity.getStack(1).isOf(AstroviaFluids.OIL_BUCKET) && blockEntity.fluid < 3) {
 			blockEntity.setStack(1, Items.BUCKET.getDefaultStack());
 			blockEntity.fluid ++;
-			System.out.println(blockEntity.progress + " progress, " + blockEntity.fluid + " fluid, " + blockEntity.gas + " gas");
+
+			world.setBlockState(pos, state.with(FLUID, blockEntity.fluid));
 		}
 
 		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && blockEntity.fluid > 0 && blockEntity.gas < 3) {
 			blockEntity.setStack(0, Items.BUCKET.getDefaultStack());
 			blockEntity.maxBurnTime = 400;
 			blockEntity.burnTime = 400;
+
+			world.setBlockState(pos, state.with(LIT, true));
 		}
 
 		if (blockEntity.progress >= blockEntity.maxProgress) {
-			System.out.println(blockEntity.progress + " progress, " + blockEntity.fluid + " fluid, " + blockEntity.gas + " gas");
 			blockEntity.progress = 0;
 			blockEntity.fluid --;
 			blockEntity.gas ++;
+
+			world.setBlockState(pos, state
+				.with(FLUID, blockEntity.fluid)
+				.with(GAS, blockEntity.gas)
+			);
 		}
 
 		if (blockEntity.burnTime > 0) {
 			blockEntity.burnTime --;
 
-			world.setBlockState(pos, state.with(LIT, true));
-
-			if (blockEntity.fluid > 0) {
+			if (blockEntity.fluid > 0 && blockEntity.gas < 3) {
 				blockEntity.progress ++;
 			}
 
 			if (blockEntity.burnTime <= 0) {
+				blockEntity.progress = 0;
+
 				world.setBlockState(pos, state.with(LIT, false));
 			}
 		}
@@ -142,6 +147,8 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		if (blockEntity.getStack(2).isOf(Items.BUCKET) && blockEntity.gas > 0) {
 			blockEntity.setStack(2, AstroviaItems.OXYGEN_BREAD.getDefaultStack());
 			blockEntity.gas --;
+
+			world.setBlockState(pos, state.with(GAS, blockEntity.gas));
 		}
 	}
 

@@ -8,9 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -23,11 +21,15 @@ import org.jetbrains.annotations.Nullable;
 public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvider {
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
+	public static final IntProperty FLUID = IntProperty.of("fluid", 0, 3);
+	public static final IntProperty GAS = IntProperty.of("gas", 0, 3);
 	protected OilHeaterBlock(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState()
 			.with(FACING, Direction.NORTH)
 			.with(LIT, false)
+			.with(FLUID, 0)
+			.with(GAS, 0)
 		);
 	}
 
@@ -76,7 +78,7 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING, LIT);
+		builder.add(FACING, LIT, FLUID, GAS);
 	}
 
 	@Nullable
