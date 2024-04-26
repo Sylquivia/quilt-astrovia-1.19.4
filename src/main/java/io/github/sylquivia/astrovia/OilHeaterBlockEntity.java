@@ -105,7 +105,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, OilHeaterBlockEntity blockEntity) {
-		if (blockEntity.getStack(1).isOf(AstroviaFluids.OIL_BUCKET) && blockEntity.fluid < 3) {
+		if (blockEntity.getStack(1).isOf(AstroviaItems.OIL_BUCKET) && blockEntity.fluid < 3) {
 			blockEntity.setStack(1, Items.BUCKET.getDefaultStack());
 			blockEntity.fluid ++;
 

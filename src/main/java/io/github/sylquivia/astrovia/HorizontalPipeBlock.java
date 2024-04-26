@@ -43,7 +43,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 	private boolean canConnectHorizontally(BlockState state) {
 		return state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK)
 			|| state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
-			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
+			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN_BLOCK)
 			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 

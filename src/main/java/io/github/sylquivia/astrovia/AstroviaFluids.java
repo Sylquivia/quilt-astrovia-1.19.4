@@ -17,12 +17,10 @@ public class AstroviaFluids {
 	public static FlowableFluid OIL = new OilFluid.Still();
 	public static FlowableFluid FLOWING_OIL = new OilFluid.Flowing();
 	public static Block OIL_BLOCK = new FluidBlock(AstroviaFluids.OIL, QuiltBlockSettings.copyOf(Blocks.WATER));
-	public static Item OIL_BUCKET = new BucketItem(AstroviaFluids.OIL, new QuiltItemSettings().maxCount(1));
 
 	public static void register(ModContainer mod) {
 		Registry.register(Registries.FLUID, new Identifier(mod.metadata().id(), "oil"), OIL);
 		Registry.register(Registries.FLUID, new Identifier(mod.metadata().id(), "flowing_oil"), FLOWING_OIL);
 		Registry.register(Registries.BLOCK, new Identifier(mod.metadata().id(), "oil_block"), OIL_BLOCK);
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oil_bucket"), OIL_BUCKET);
 	}
 }

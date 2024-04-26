@@ -20,6 +20,8 @@ public class AstroviaItems {
 			.build()
 	));
 
+	public static final Item OIL_BUCKET = new BucketItem(AstroviaFluids.OIL, new QuiltItemSettings().maxCount(1));
+
 	public static final ArmorMaterial SPACESUIT_MATERIAL = new SpacesuitMaterial();
 	public static final Item SPACESUIT_HELMET = new ArmorItem(SPACESUIT_MATERIAL, ArmorItem.ArmorSlot.HELMET, new QuiltItemSettings());
 	public static final Item SPACESUIT_CHEST = new ArmorItem(SPACESUIT_MATERIAL, ArmorItem.ArmorSlot.CHESTPLATE, new QuiltItemSettings());
@@ -28,25 +30,24 @@ public class AstroviaItems {
 
 	public static void register(ModContainer mod) {
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oxygen_bread"), OXYGEN_BREAD);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "oil_bucket"), OIL_BUCKET);
 
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "spacesuit_helmet"), SPACESUIT_HELMET);
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "spacesuit_chest"), SPACESUIT_CHEST);
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "spacesuit_legs"), SPACESUIT_LEGS);
 		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "spacesuit_boots"), SPACESUIT_BOOTS);
 
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "fractionating_column"), new BlockItem(FRACTIONATING_COLUMN, new QuiltItemSettings()));
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "goo_bitty"), new BlockItem(GOO_BITTY, new QuiltItemSettings()));
-
 		Registry.register(Registries.ITEM, OIL_HEATER, new BlockItem(OIL_HEATER_BLOCK, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, DIRECTIONAL_PIPE, new BlockItem(DIRECTIONAL_PIPE_BLOCK, new QuiltItemSettings()));
 		Registry.register(Registries.ITEM, HORIZONTAL_PIPE, new BlockItem(HORIZONTAL_PIPE_BLOCK, new QuiltItemSettings()));
+		Registry.register(Registries.ITEM, FRACTIONATING_COLUMN, new BlockItem(FRACTIONATING_COLUMN_BLOCK, new QuiltItemSettings()));
 
 
 		ItemGroup ASTROVIA_ITEMS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_items"))
 			.icon(() -> new ItemStack(OXYGEN_BREAD))
 			.build();
 		ItemGroup ASTROVIA_BLOCKS = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_blocks"))
-			.icon(() -> new ItemStack(FRACTIONATING_COLUMN))
+			.icon(() -> new ItemStack(FRACTIONATING_COLUMN_BLOCK))
 			.build();
 		ItemGroup ASTROVIA_ARMOUR = FabricItemGroup.builder(new Identifier("astrovia", "astrovia_armour"))
 			.icon(() -> new ItemStack(SPACESUIT_HELMET))
@@ -54,16 +55,14 @@ public class AstroviaItems {
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ITEMS).register(entries -> {
 			entries.addItem(OXYGEN_BREAD);
-			entries.addItem(AstroviaFluids.OIL_BUCKET);
+			entries.addItem(OIL_BUCKET);
 		});
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_BLOCKS).register(entries -> {
-			entries.addItem(FRACTIONATING_COLUMN.asItem());
-			entries.addItem(GOO_BITTY.asItem());
-
 			entries.addItem(OIL_HEATER_BLOCK.asItem());
 			entries.addItem(DIRECTIONAL_PIPE_BLOCK.asItem());
 			entries.addItem(HORIZONTAL_PIPE_BLOCK.asItem());
+			entries.addItem(FRACTIONATING_COLUMN_BLOCK.asItem());
 		});
 
 		ItemGroupEvents.modifyEntriesEvent(ASTROVIA_ARMOUR).register(entries -> {

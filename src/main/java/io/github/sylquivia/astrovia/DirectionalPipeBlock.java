@@ -2,6 +2,8 @@ package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -14,6 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,13 +45,13 @@ public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggab
 	private boolean canConnectHorizontally(BlockState state) {
 		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
 			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK)
-			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
+			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN_BLOCK)
 			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 
 	private boolean canConnectVertically(BlockState state) {
 		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
-			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN)
+			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN_BLOCK)
 			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 
@@ -121,5 +124,11 @@ public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggab
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return VoxelShapes.cuboid(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		return checkType(type, AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK_ENTITY, (DirectionalPipeBlockEntity :: tick));
 	}
 }

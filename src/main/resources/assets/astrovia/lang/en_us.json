@@ -3,17 +3,16 @@
   "itemGroup.astrovia.astrovia_blocks": "Astrovia Blocks",
   "itemGroup.astrovia.astrovia_armour": "Astrovia Armour",
 
-  "item.astrovia.oil_bucket": "Oil Bucket",
   "item.astrovia.oxygen_bread": "Oxygen Bread",
+  "item.astrovia.oil_bucket": "Oil Bucket",
 
   "item.astrovia.spacesuit_helmet": "Spacesuit Helmet",
   "item.astrovia.spacesuit_chest": "Spacesuit Chest",
   "item.astrovia.spacesuit_legs": "Spacesuit Legs",
   "item.astrovia.spacesuit_boots": "Spacesuit Boots",
 
-  "block.astrovia.fractionating_column": "Fractionating Column",
-  "block.astrovia.goo_bitty": "goo bitty",
   "block.astrovia.oil_heater_block": "Oil Heater",
   "block.astrovia.directional_pipe_block": "Directional Pipe",
-  "block.astrovia.horizontal_pipe_block": "Horizontal Pipe"
+  "block.astrovia.horizontal_pipe_block": "Horizontal Pipe",
+  "block.astrovia.fractionating_column_block": "Fractionating Column"
 }

@@ -47,7 +47,7 @@ public abstract class OilFluid extends FlowableFluid {
 
 	@Override
 	public Item getBucketItem() {
-		return AstroviaFluids.OIL_BUCKET;
+		return AstroviaItems.OIL_BUCKET;
 	}
 
 	@Override
