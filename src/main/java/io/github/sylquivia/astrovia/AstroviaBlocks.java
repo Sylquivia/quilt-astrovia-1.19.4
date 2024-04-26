@@ -22,7 +22,7 @@ public class AstroviaBlocks {
 	public static Identifier HORIZONTAL_PIPE = new Identifier("astrovia", "horizontal_pipe_block");
 	public static final Block HORIZONTAL_PIPE_BLOCK = new HorizontalPipeBlock(QuiltBlockSettings.copyOf(Blocks.IRON_BLOCK));
 	public static final BlockEntityType<DirectionalPipeBlockEntity> DIRECTIONAL_PIPE_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(DirectionalPipeBlockEntity :: new, DIRECTIONAL_PIPE_BLOCK).build(null);
-	public static final BlockEntityType<DirectionalPipeBlockEntity> HORIZONTAL_PIPE_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(DirectionalPipeBlockEntity :: new, HORIZONTAL_PIPE_BLOCK).build(null);
+	public static final BlockEntityType<HorizontalPipeBlockEntity> HORIZONTAL_PIPE_BLOCK_ENTITY = QuiltBlockEntityTypeBuilder.create(HorizontalPipeBlockEntity :: new, HORIZONTAL_PIPE_BLOCK).build(null);
 	public static void register(ModContainer mod) {
 
 		Registry.register(Registries.BLOCK, new Identifier(mod.metadata().id(), "fractionating_column"), FRACTIONATING_COLUMN);

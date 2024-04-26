@@ -2,6 +2,8 @@ package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -14,6 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,13 +80,6 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
-		if (neighborState.contains(GAS)) {
-			if (neighborState.get(GAS) > 0) {
-				world.setBlockState(pos, state.with(GAS, neighborState.get(GAS)), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos, neighborState.with(GAS, state.get(GAS)), Block.NOTIFY_LISTENERS);
-			}
-		}
-
 		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
@@ -111,5 +107,11 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return VoxelShapes.cuboid(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		return checkType(type, AstroviaBlocks.HORIZONTAL_PIPE_BLOCK_ENTITY, (HorizontalPipeBlockEntity :: tick));
 	}
 }
