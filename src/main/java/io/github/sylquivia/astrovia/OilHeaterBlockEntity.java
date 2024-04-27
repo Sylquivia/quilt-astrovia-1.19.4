@@ -105,14 +105,13 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, OilHeaterBlockEntity blockEntity) {
-		if (blockEntity.getStack(1).isOf(AstroviaItems.OIL_BUCKET) && blockEntity.oil < 3) {
+		if (blockEntity.getStack(1).isOf(AstroviaItems.OIL_BUCKET) && state.get(OIL) < 3) {
 			blockEntity.setStack(1, Items.BUCKET.getDefaultStack());
-			blockEntity.oil++;
 
-			world.setBlockState(pos, state.with(OIL, blockEntity.oil), Block.NOTIFY_LISTENERS);
+			world.setBlockState(pos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
 		}
 
-		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && blockEntity.oil > 0 && blockEntity.gas < 3) {
+		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && state.get(OIL) > 0 && state.get(GAS) < 3) {
 			blockEntity.setStack(0, Items.BUCKET.getDefaultStack());
 			blockEntity.maxBurnTime = 400;
 			blockEntity.burnTime = 400;
@@ -120,46 +119,42 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 			world.setBlockState(pos, state.with(LIT, true));
 		}
 
-		if (blockEntity.progress >= blockEntity.maxProgress) {
-			blockEntity.progress = 0;
-			blockEntity.oil--;
-			blockEntity.gas ++;
-
-			world.setBlockState(pos, state
-				.with(OIL, blockEntity.oil)
-				.with(GAS, blockEntity.gas),
-				Block.NOTIFY_LISTENERS
-			);
-		}
-
 		if (blockEntity.burnTime > 0) {
 			blockEntity.burnTime --;
 
-			if (blockEntity.oil > 0 && blockEntity.gas < 3) {
+			if (state.get(OIL) > 0 && state.get(GAS) < 3) {
 				blockEntity.progress ++;
 			}
 
-			if (blockEntity.burnTime <= 0) {
+			if (blockEntity.progress >= blockEntity.maxProgress) {
 				blockEntity.progress = 0;
 
-				world.setBlockState(pos, state.with(LIT, false));
+				if (blockEntity.burnTime <= 0 && !blockEntity.getStack(0).isOf(Items.LAVA_BUCKET)) {
+					blockEntity.progress = 0;
+
+					world.setBlockState(pos, state
+							.with(OIL, state.get(OIL) - 1)
+							.with(GAS, state.get(GAS) + 1)
+							.with(LIT, false),
+						Block.NOTIFY_LISTENERS);
+				} else {
+					world.setBlockState(pos, state
+							.with(OIL, state.get(OIL) - 1)
+							.with(GAS, state.get(GAS) + 1)
+							.with(LIT, true),
+						Block.NOTIFY_LISTENERS);
+				}
 			}
 		}
 
-		if (blockEntity.getStack(2).isOf(Items.BUCKET) && blockEntity.gas > 0) {
+		if (blockEntity.getStack(2).isOf(Items.BUCKET) && state.get(GAS) > 0) {
 			blockEntity.setStack(2, AstroviaItems.OXYGEN_BREAD.getDefaultStack());
-			blockEntity.gas --;
 
-			world.setBlockState(pos, state.with(GAS, blockEntity.gas), Block.NOTIFY_LISTENERS);
+			world.setBlockState(pos, state.with(GAS, state.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 		}
 
-		if (blockEntity.oil != state.get(OIL)) {
-			blockEntity.oil = state.get(OIL);
-		}
-
-		if (blockEntity.gas != state.get(GAS)) {
-			blockEntity.gas = state.get(GAS);
-		}
+		blockEntity.oil = state.get(OIL);
+		blockEntity.gas = state.get(GAS);
 	}
 
 	@Nullable

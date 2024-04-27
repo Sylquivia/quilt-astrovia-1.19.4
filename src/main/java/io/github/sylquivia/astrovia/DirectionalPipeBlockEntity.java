@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import static io.github.sylquivia.astrovia.DirectionalPipeBlock.*;
-import static io.github.sylquivia.astrovia.HorizontalPipeBlock.GAS;
 
 public class DirectionalPipeBlockEntity extends BlockEntity {
 	public int oil = 0;
@@ -86,85 +85,85 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 		BlockState neighborState5 = world.getBlockState(neighborPos5);
 
 		if (blockEntity.canTakeOilFrom(neighborState)) {
-			if (neighborState.get(HorizontalPipeBlock.OIL) > 0 && neighborState.get(HorizontalPipeBlock.OIL) < 3 - state.get(HorizontalPipeBlock.OIL)) {
-				world.setBlockState(blockPos, state.with(HorizontalPipeBlock.OIL, state.get(HorizontalPipeBlock.OIL) + 1), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos, neighborState.with(HorizontalPipeBlock.OIL, neighborState.get(HorizontalPipeBlock.OIL) - 1), Block.NOTIFY_LISTENERS);
+			if (neighborState.get(OIL) > 0 && neighborState.get(OIL) <= 3 - state.get(OIL)) {
+				world.setBlockState(blockPos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(neighborPos, neighborState.with(OIL, neighborState.get(OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeOilFrom(neighborState1)) {
-			if (neighborState1.get(HorizontalPipeBlock.OIL) > 0 && neighborState1.get(HorizontalPipeBlock.OIL) < 3 - state.get(HorizontalPipeBlock.OIL)) {
-				world.setBlockState(blockPos, state.with(HorizontalPipeBlock.OIL, state.get(HorizontalPipeBlock.OIL) + 1), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos1, neighborState1.with(HorizontalPipeBlock.OIL, neighborState1.get(HorizontalPipeBlock.OIL) - 1), Block.NOTIFY_LISTENERS);
+			if (neighborState1.get(OIL) > 0 && neighborState1.get(OIL) <= 3 - state.get(OIL)) {
+				world.setBlockState(blockPos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(neighborPos1, neighborState1.with(OIL, neighborState1.get(OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeOilFrom(neighborState2)) {
-			if (neighborState2.get(HorizontalPipeBlock.OIL) > 0 && neighborState2.get(HorizontalPipeBlock.OIL) < 3 - state.get(HorizontalPipeBlock.OIL)) {
-				world.setBlockState(blockPos, state.with(HorizontalPipeBlock.OIL, state.get(HorizontalPipeBlock.OIL) + 1), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos2, neighborState2.with(HorizontalPipeBlock.OIL, neighborState2.get(HorizontalPipeBlock.OIL) - 1), Block.NOTIFY_LISTENERS);
+			if (neighborState2.get(OIL) > 0 && neighborState2.get(OIL) <= 3 - state.get(OIL)) {
+				world.setBlockState(blockPos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(neighborPos2, neighborState2.with(OIL, neighborState2.get(OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeOilFrom(neighborState3)) {
-			if (neighborState3.get(HorizontalPipeBlock.OIL) > 0 && neighborState3.get(HorizontalPipeBlock.OIL) < 3 - state.get(HorizontalPipeBlock.OIL)) {
-				world.setBlockState(blockPos, state.with(HorizontalPipeBlock.OIL, state.get(HorizontalPipeBlock.OIL) + 1), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos3, neighborState3.with(HorizontalPipeBlock.OIL, neighborState3.get(HorizontalPipeBlock.OIL) - 1), Block.NOTIFY_LISTENERS);
+			if (neighborState3.get(OIL) > 0 && neighborState3.get(OIL) <= 3 - state.get(OIL)) {
+				world.setBlockState(blockPos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(neighborPos3, neighborState3.with(OIL, neighborState3.get(OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeOilFrom(neighborState4)) {
-			if (neighborState4.get(HorizontalPipeBlock.OIL) > 0 && neighborState4.get(HorizontalPipeBlock.OIL) < 3 - state.get(HorizontalPipeBlock.OIL)) {
-				world.setBlockState(blockPos, state.with(HorizontalPipeBlock.OIL, state.get(HorizontalPipeBlock.OIL) + 1), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos4, neighborState4.with(HorizontalPipeBlock.OIL, neighborState4.get(HorizontalPipeBlock.OIL) - 1), Block.NOTIFY_LISTENERS);
+			if (neighborState4.get(OIL) > 0 && neighborState4.get(OIL) <= 3 - state.get(OIL)) {
+				world.setBlockState(blockPos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(neighborPos4, neighborState4.with(OIL, neighborState4.get(OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeOilFrom(neighborState5)) {
-			if (neighborState5.get(HorizontalPipeBlock.OIL) > 0 && neighborState5.get(HorizontalPipeBlock.OIL) < 3 - state.get(HorizontalPipeBlock.OIL)) {
-				world.setBlockState(blockPos, state.with(HorizontalPipeBlock.OIL, state.get(HorizontalPipeBlock.OIL) + 1), Block.NOTIFY_LISTENERS);
-				world.setBlockState(neighborPos5, neighborState5.with(HorizontalPipeBlock.OIL, neighborState5.get(HorizontalPipeBlock.OIL) - 1), Block.NOTIFY_LISTENERS);
+			if (neighborState5.get(OIL) > 0 && neighborState5.get(OIL) <= 3 - state.get(OIL)) {
+				world.setBlockState(blockPos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(neighborPos5, neighborState5.with(OIL, neighborState5.get(OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 
 		if (blockEntity.canTakeGasFrom(neighborState)) {
-			if (neighborState.get(GAS) > 0 && neighborState.get(GAS) < 3 - state.get(GAS)) {
+			if (neighborState.get(GAS) > 0 && neighborState.get(GAS) <= 3 - state.get(GAS)) {
 				world.setBlockState(blockPos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos, neighborState.with(GAS, neighborState.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeGasFrom(neighborState1)) {
-			if (neighborState1.get(GAS) > 0 && neighborState1.get(GAS) < 3 - state.get(GAS)) {
+			if (neighborState1.get(GAS) > 0 && neighborState1.get(GAS) <= 3 - state.get(GAS)) {
 				world.setBlockState(blockPos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos1, neighborState1.with(GAS, neighborState1.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeGasFrom(neighborState2)) {
-			if (neighborState2.get(GAS) > 0 && neighborState2.get(GAS) < 3 - state.get(GAS)) {
+			if (neighborState2.get(GAS) > 0 && neighborState2.get(GAS) <= 3 - state.get(GAS)) {
 				world.setBlockState(blockPos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos2, neighborState2.with(GAS, neighborState2.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeGasFrom(neighborState3)) {
-			if (neighborState3.get(GAS) > 0 && neighborState3.get(GAS) < 3 - state.get(GAS)) {
+			if (neighborState3.get(GAS) > 0 && neighborState3.get(GAS) <= 3 - state.get(GAS)) {
 				world.setBlockState(blockPos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos3, neighborState3.with(GAS, neighborState3.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeGasFrom(neighborState4)) {
-			if (neighborState4.get(GAS) > 0 && neighborState4.get(GAS) < 3 - state.get(GAS)) {
+			if (neighborState4.get(GAS) > 0 && neighborState4.get(GAS) <= 3 - state.get(GAS)) {
 				world.setBlockState(blockPos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos4, neighborState4.with(GAS, neighborState4.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeGasFrom(neighborState5)) {
-			if (neighborState5.get(GAS) > 0 && neighborState5.get(GAS) < 3 - state.get(GAS)) {
+			if (neighborState5.get(GAS) > 0 && neighborState5.get(GAS) <= 3 - state.get(GAS)) {
 				world.setBlockState(blockPos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos5, neighborState5.with(GAS, neighborState5.get(GAS) - 1), Block.NOTIFY_LISTENERS);
 			}
@@ -172,42 +171,42 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 
 
 		if (blockEntity.canTakeNaphthaFrom(neighborState)) {
-			if (neighborState.get(NAPHTHA) > 0 && neighborState.get(NAPHTHA) < 3 - state.get(NAPHTHA)) {
+			if (neighborState.get(NAPHTHA) > 0 && neighborState.get(NAPHTHA) <= 3 - state.get(NAPHTHA)) {
 				world.setBlockState(blockPos, state.with(NAPHTHA, state.get(NAPHTHA) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos, neighborState.with(NAPHTHA, neighborState.get(NAPHTHA) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeNaphthaFrom(neighborState1)) {
-			if (neighborState1.get(NAPHTHA) > 0 && neighborState1.get(NAPHTHA) < 3 - state.get(NAPHTHA)) {
+			if (neighborState1.get(NAPHTHA) > 0 && neighborState1.get(NAPHTHA) <= 3 - state.get(NAPHTHA)) {
 				world.setBlockState(blockPos, state.with(NAPHTHA, state.get(NAPHTHA) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos1, neighborState1.with(NAPHTHA, neighborState1.get(NAPHTHA) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeNaphthaFrom(neighborState2)) {
-			if (neighborState2.get(NAPHTHA) > 0 && neighborState2.get(NAPHTHA) < 3 - state.get(NAPHTHA)) {
+			if (neighborState2.get(NAPHTHA) > 0 && neighborState2.get(NAPHTHA) <= 3 - state.get(NAPHTHA)) {
 				world.setBlockState(blockPos, state.with(NAPHTHA, state.get(NAPHTHA) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos2, neighborState2.with(NAPHTHA, neighborState2.get(NAPHTHA) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeNaphthaFrom(neighborState3)) {
-			if (neighborState3.get(NAPHTHA) > 0 && neighborState3.get(NAPHTHA) < 3 - state.get(NAPHTHA)) {
+			if (neighborState3.get(NAPHTHA) > 0 && neighborState3.get(NAPHTHA) <= 3 - state.get(NAPHTHA)) {
 				world.setBlockState(blockPos, state.with(NAPHTHA, state.get(NAPHTHA) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos3, neighborState3.with(NAPHTHA, neighborState3.get(NAPHTHA) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeNaphthaFrom(neighborState4)) {
-			if (neighborState4.get(NAPHTHA) > 0 && neighborState4.get(NAPHTHA) < 3 - state.get(NAPHTHA)) {
+			if (neighborState4.get(NAPHTHA) > 0 && neighborState4.get(NAPHTHA) <= 3 - state.get(NAPHTHA)) {
 				world.setBlockState(blockPos, state.with(NAPHTHA, state.get(NAPHTHA) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos4, neighborState4.with(NAPHTHA, neighborState4.get(NAPHTHA) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeNaphthaFrom(neighborState5)) {
-			if (neighborState5.get(NAPHTHA) > 0 && neighborState5.get(NAPHTHA) < 3 - state.get(NAPHTHA)) {
+			if (neighborState5.get(NAPHTHA) > 0 && neighborState5.get(NAPHTHA) <= 3 - state.get(NAPHTHA)) {
 				world.setBlockState(blockPos, state.with(NAPHTHA, state.get(NAPHTHA) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos5, neighborState5.with(NAPHTHA, neighborState5.get(NAPHTHA) - 1), Block.NOTIFY_LISTENERS);
 			}
@@ -215,42 +214,42 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 
 
 		if (blockEntity.canTakeKeroseneFrom(neighborState)) {
-			if (neighborState.get(KEROSENE) > 0 && neighborState.get(KEROSENE) < 3 - state.get(KEROSENE)) {
+			if (neighborState.get(KEROSENE) > 0 && neighborState.get(KEROSENE) <= 3 - state.get(KEROSENE)) {
 				world.setBlockState(blockPos, state.with(KEROSENE, state.get(KEROSENE) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos, neighborState.with(KEROSENE, neighborState.get(KEROSENE) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeKeroseneFrom(neighborState1)) {
-			if (neighborState1.get(KEROSENE) > 0 && neighborState1.get(KEROSENE) < 3 - state.get(KEROSENE)) {
+			if (neighborState1.get(KEROSENE) > 0 && neighborState1.get(KEROSENE) <= 3 - state.get(KEROSENE)) {
 				world.setBlockState(blockPos, state.with(KEROSENE, state.get(KEROSENE) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos1, neighborState1.with(KEROSENE, neighborState1.get(KEROSENE) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeKeroseneFrom(neighborState2)) {
-			if (neighborState2.get(KEROSENE) > 0 && neighborState2.get(KEROSENE) < 3 - state.get(KEROSENE)) {
+			if (neighborState2.get(KEROSENE) > 0 && neighborState2.get(KEROSENE) <= 3 - state.get(KEROSENE)) {
 				world.setBlockState(blockPos, state.with(KEROSENE, state.get(KEROSENE) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos2, neighborState2.with(KEROSENE, neighborState2.get(KEROSENE) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeKeroseneFrom(neighborState3)) {
-			if (neighborState3.get(KEROSENE) > 0 && neighborState3.get(KEROSENE) < 3 - state.get(KEROSENE)) {
+			if (neighborState3.get(KEROSENE) > 0 && neighborState3.get(KEROSENE) <= 3 - state.get(KEROSENE)) {
 				world.setBlockState(blockPos, state.with(KEROSENE, state.get(KEROSENE) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos3, neighborState3.with(KEROSENE, neighborState3.get(KEROSENE) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeKeroseneFrom(neighborState4)) {
-			if (neighborState4.get(KEROSENE) > 0 && neighborState4.get(KEROSENE) < 3 - state.get(KEROSENE)) {
+			if (neighborState4.get(KEROSENE) > 0 && neighborState4.get(KEROSENE) <= 3 - state.get(KEROSENE)) {
 				world.setBlockState(blockPos, state.with(KEROSENE, state.get(KEROSENE) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos4, neighborState4.with(KEROSENE, neighborState4.get(KEROSENE) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeKeroseneFrom(neighborState5)) {
-			if (neighborState5.get(KEROSENE) > 0 && neighborState5.get(KEROSENE) < 3 - state.get(KEROSENE)) {
+			if (neighborState5.get(KEROSENE) > 0 && neighborState5.get(KEROSENE) <= 3 - state.get(KEROSENE)) {
 				world.setBlockState(blockPos, state.with(KEROSENE, state.get(KEROSENE) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos5, neighborState5.with(KEROSENE, neighborState5.get(KEROSENE) - 1), Block.NOTIFY_LISTENERS);
 			}
@@ -258,42 +257,42 @@ public class DirectionalPipeBlockEntity extends BlockEntity {
 
 
 		if (blockEntity.canTakeFuelOilFrom(neighborState)) {
-			if (neighborState.get(FUEL_OIL) > 0 && neighborState.get(FUEL_OIL) < 3 - state.get(FUEL_OIL)) {
+			if (neighborState.get(FUEL_OIL) > 0 && neighborState.get(FUEL_OIL) <= 3 - state.get(FUEL_OIL)) {
 				world.setBlockState(blockPos, state.with(FUEL_OIL, state.get(FUEL_OIL) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos, neighborState.with(FUEL_OIL, neighborState.get(FUEL_OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeFuelOilFrom(neighborState1)) {
-			if (neighborState1.get(FUEL_OIL) > 0 && neighborState1.get(FUEL_OIL) < 3 - state.get(FUEL_OIL)) {
+			if (neighborState1.get(FUEL_OIL) > 0 && neighborState1.get(FUEL_OIL) <= 3 - state.get(FUEL_OIL)) {
 				world.setBlockState(blockPos, state.with(FUEL_OIL, state.get(FUEL_OIL) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos1, neighborState1.with(FUEL_OIL, neighborState1.get(FUEL_OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeFuelOilFrom(neighborState2)) {
-			if (neighborState2.get(FUEL_OIL) > 0 && neighborState2.get(FUEL_OIL) < 3 - state.get(FUEL_OIL)) {
+			if (neighborState2.get(FUEL_OIL) > 0 && neighborState2.get(FUEL_OIL) <= 3 - state.get(FUEL_OIL)) {
 				world.setBlockState(blockPos, state.with(FUEL_OIL, state.get(FUEL_OIL) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos2, neighborState2.with(FUEL_OIL, neighborState2.get(FUEL_OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeFuelOilFrom(neighborState3)) {
-			if (neighborState3.get(FUEL_OIL) > 0 && neighborState3.get(FUEL_OIL) < 3 - state.get(FUEL_OIL)) {
+			if (neighborState3.get(FUEL_OIL) > 0 && neighborState3.get(FUEL_OIL) <= 3 - state.get(FUEL_OIL)) {
 				world.setBlockState(blockPos, state.with(FUEL_OIL, state.get(FUEL_OIL) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos3, neighborState3.with(FUEL_OIL, neighborState3.get(FUEL_OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeFuelOilFrom(neighborState4)) {
-			if (neighborState4.get(FUEL_OIL) > 0 && neighborState4.get(FUEL_OIL) < 3 - state.get(FUEL_OIL)) {
+			if (neighborState4.get(FUEL_OIL) > 0 && neighborState4.get(FUEL_OIL) <= 3 - state.get(FUEL_OIL)) {
 				world.setBlockState(blockPos, state.with(FUEL_OIL, state.get(FUEL_OIL) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos4, neighborState4.with(FUEL_OIL, neighborState4.get(FUEL_OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
 		}
 
 		if (blockEntity.canTakeFuelOilFrom(neighborState5)) {
-			if (neighborState5.get(FUEL_OIL) > 0 && neighborState5.get(FUEL_OIL) < 3 - state.get(FUEL_OIL)) {
+			if (neighborState5.get(FUEL_OIL) > 0 && neighborState5.get(FUEL_OIL) <= 3 - state.get(FUEL_OIL)) {
 				world.setBlockState(blockPos, state.with(FUEL_OIL, state.get(FUEL_OIL) + 1), Block.NOTIFY_LISTENERS);
 				world.setBlockState(neighborPos5, neighborState5.with(FUEL_OIL, neighborState5.get(FUEL_OIL) - 1), Block.NOTIFY_LISTENERS);
 			}
