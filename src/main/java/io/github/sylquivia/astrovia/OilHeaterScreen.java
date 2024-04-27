@@ -26,7 +26,7 @@ public class OilHeaterScreen extends HandledScreen <OilHeaterScreenHandler> {
 
 		drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
 
-		switch (this.handler.getFluid()) {
+		switch (this.handler.getOil()) {
 			case 1:
 				drawTexture(matrices, x + 48, y + 53, 176, 67, 8, 16);
 				break;
@@ -50,7 +50,7 @@ public class OilHeaterScreen extends HandledScreen <OilHeaterScreenHandler> {
 				break;
 		}
 
-		if (this.handler.getProgress() > 0 && this.handler.getBurnTime() > 0 && this.handler.getFluid() > 0 && this.handler.getGas() < 3) {
+		if (this.handler.getProgress() > 0 && this.handler.getBurnTime() > 0 && this.handler.getOil() > 0 && this.handler.getGas() < 3) {
 			int progressWidth = 24 * this.handler.getProgress() / this.handler.getMaxProgress();
 			drawTexture(matrices, x + 76, y + 17, 176, 14, progressWidth, 17);
 		}

@@ -24,8 +24,11 @@ import static net.minecraft.block.ConnectingBlock.*;
 
 public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggable, BlockEntityProvider {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-	public static final IntProperty FLUID = AstroviaProperties.FLUID_3;
+	public static final IntProperty OIL = AstroviaProperties.OIL_3;
 	public static final IntProperty GAS = AstroviaProperties.GAS_3;
+	public static final IntProperty NAPHTHA = AstroviaProperties.NAPHTHA_3;
+	public static final IntProperty KEROSENE = AstroviaProperties.KEROSENE_3;
+	public static final IntProperty FUEL_OIL = AstroviaProperties.FUEL_OIL_3;
 
 	public DirectionalPipeBlock(Settings settings) {
 		super(settings);
@@ -37,8 +40,11 @@ public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggab
 			.with(UP, false)
 			.with(DOWN, false)
 			.with(WATERLOGGED, false)
-			.with(FLUID, 0)
+			.with(OIL, 0)
 			.with(GAS, 0)
+			.with(NAPHTHA, 0)
+			.with(KEROSENE, 0)
+			.with(FUEL_OIL, 0)
 		);
 	}
 
@@ -92,11 +98,6 @@ public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggab
 			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
-		if (neighborState.get(GAS) > 0) {
-			world.setBlockState(pos, state.with(GAS, neighborState.get(GAS)), Block.NOTIFY_LISTENERS);
-			world.setBlockState(neighborPos, neighborState.with(GAS, neighborState.get(GAS) - 1), Block.NOTIFY_LISTENERS);
-		}
-
 		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
@@ -107,7 +108,7 @@ public class DirectionalPipeBlock extends BlockWithEntity implements Waterloggab
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED, FLUID, GAS);
+		builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED, OIL, GAS, NAPHTHA, KEROSENE, FUEL_OIL);
 	}
 
 	@Nullable

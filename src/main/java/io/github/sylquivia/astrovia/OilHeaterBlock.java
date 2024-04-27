@@ -21,14 +21,14 @@ import org.jetbrains.annotations.Nullable;
 public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvider {
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
-	public static final IntProperty FLUID = AstroviaProperties.FLUID_3;
+	public static final IntProperty OIL = AstroviaProperties.OIL_3;
 	public static final IntProperty GAS = AstroviaProperties.GAS_3;
 	protected OilHeaterBlock(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState()
 			.with(FACING, Direction.NORTH)
 			.with(LIT, false)
-			.with(FLUID, 0)
+			.with(OIL, 0)
 			.with(GAS, 0)
 		);
 	}
@@ -78,7 +78,7 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING, LIT, FLUID, GAS);
+		builder.add(FACING, LIT, OIL, GAS);
 	}
 
 	@Nullable

@@ -26,13 +26,13 @@ import static io.github.sylquivia.astrovia.OilHeaterBlock.*;
 public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 	private final DefaultedList <ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 	public final int maxProgress = 200;
-	public int fluid, gas, burnTime, maxBurnTime, progress; // make fluid and gas properties not just nbt k thx
+	public int oil, gas, burnTime, maxBurnTime, progress;
 	protected final PropertyDelegate propertyDelegate = new PropertyDelegate() {
 		@Override
 		public int get(int index) {
 			switch(index) {
 				case 0:
-					return OilHeaterBlockEntity.this.fluid;
+					return OilHeaterBlockEntity.this.oil;
 				case 1:
 					return OilHeaterBlockEntity.this.gas;
 				case 2:
@@ -52,7 +52,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		public void set(int index, int value) {
 			switch(index) {
 				case 0:
-					OilHeaterBlockEntity.this.fluid = value;
+					OilHeaterBlockEntity.this.oil = value;
 					break;
 				case 1:
 					OilHeaterBlockEntity.this.gas = value;
@@ -86,7 +86,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
 		Inventories.readNbt(nbt, inventory);
-		fluid = nbt.getInt("fluid");
+		oil = nbt.getInt("oil");
 		gas = nbt.getInt("gas");
 		burnTime = nbt.getInt("burnTime");
 		maxBurnTime = nbt.getInt("maxBurnTime");
@@ -96,7 +96,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 	@Override
 	protected void writeNbt(NbtCompound nbt) {
 		Inventories.writeNbt(nbt, inventory);
-		nbt.putInt("fluid", fluid);
+		nbt.putInt("oil", oil);
 		nbt.putInt("gas", gas);
 		nbt.putInt("burnTime", burnTime);
 		nbt.putInt("maxBurnTime", maxBurnTime);
@@ -105,14 +105,14 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, OilHeaterBlockEntity blockEntity) {
-		if (blockEntity.getStack(1).isOf(AstroviaItems.OIL_BUCKET) && blockEntity.fluid < 3) {
+		if (blockEntity.getStack(1).isOf(AstroviaItems.OIL_BUCKET) && blockEntity.oil < 3) {
 			blockEntity.setStack(1, Items.BUCKET.getDefaultStack());
-			blockEntity.fluid ++;
+			blockEntity.oil++;
 
-			world.setBlockState(pos, state.with(FLUID, blockEntity.fluid), Block.NOTIFY_LISTENERS);
+			world.setBlockState(pos, state.with(OIL, blockEntity.oil), Block.NOTIFY_LISTENERS);
 		}
 
-		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && blockEntity.fluid > 0 && blockEntity.gas < 3) {
+		if (blockEntity.getStack(0).isOf(Items.LAVA_BUCKET) && blockEntity.burnTime <= 0 && blockEntity.oil > 0 && blockEntity.gas < 3) {
 			blockEntity.setStack(0, Items.BUCKET.getDefaultStack());
 			blockEntity.maxBurnTime = 400;
 			blockEntity.burnTime = 400;
@@ -122,11 +122,11 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 
 		if (blockEntity.progress >= blockEntity.maxProgress) {
 			blockEntity.progress = 0;
-			blockEntity.fluid --;
+			blockEntity.oil--;
 			blockEntity.gas ++;
 
 			world.setBlockState(pos, state
-				.with(FLUID, blockEntity.fluid)
+				.with(OIL, blockEntity.oil)
 				.with(GAS, blockEntity.gas),
 				Block.NOTIFY_LISTENERS
 			);
@@ -135,7 +135,7 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 		if (blockEntity.burnTime > 0) {
 			blockEntity.burnTime --;
 
-			if (blockEntity.fluid > 0 && blockEntity.gas < 3) {
+			if (blockEntity.oil > 0 && blockEntity.gas < 3) {
 				blockEntity.progress ++;
 			}
 
@@ -153,8 +153,8 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 			world.setBlockState(pos, state.with(GAS, blockEntity.gas), Block.NOTIFY_LISTENERS);
 		}
 
-		if (blockEntity.fluid != state.get(FLUID)) {
-			blockEntity.fluid = state.get(FLUID);
+		if (blockEntity.oil != state.get(OIL)) {
+			blockEntity.oil = state.get(OIL);
 		}
 
 		if (blockEntity.gas != state.get(GAS)) {

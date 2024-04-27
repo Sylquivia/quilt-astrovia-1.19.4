@@ -76,7 +76,7 @@ public class OilHeaterScreenHandler extends ScreenHandler {
 		return this.inventory.canPlayerUse(player);
 	}
 
-	public int getFluid() {
+	public int getOil() {
 		return this.propertyDelegate.get(0);
 	}
 

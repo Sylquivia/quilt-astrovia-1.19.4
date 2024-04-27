@@ -24,8 +24,11 @@ import static net.minecraft.block.ConnectingBlock.*;
 
 public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggable, BlockEntityProvider {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-	public static final IntProperty FLUID = AstroviaProperties.FLUID_3;
+	public static final IntProperty OIL = AstroviaProperties.OIL_3;
 	public static final IntProperty GAS = AstroviaProperties.GAS_3;
+	public static final IntProperty NAPHTHA = AstroviaProperties.NAPHTHA_3;
+	public static final IntProperty KEROSENE = AstroviaProperties.KEROSENE_3;
+	public static final IntProperty FUEL_OIL = AstroviaProperties.FUEL_OIL_3;
 
 	public HorizontalPipeBlock(Settings settings) {
 		super(settings);
@@ -35,8 +38,11 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			.with(SOUTH, false)
 			.with(WEST, false)
 			.with(WATERLOGGED, false)
-			.with(FLUID, 0)
+			.with(OIL, 0)
 			.with(GAS, 0)
+			.with(NAPHTHA, 0)
+			.with(KEROSENE, 0)
+			.with(FUEL_OIL, 0)
 		);
 	}
 
@@ -90,7 +96,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(NORTH, EAST, SOUTH, WEST, WATERLOGGED, FLUID, GAS);
+		builder.add(NORTH, EAST, SOUTH, WEST, WATERLOGGED, OIL, GAS, NAPHTHA, KEROSENE, FUEL_OIL);
 	}
 
 	@Nullable
