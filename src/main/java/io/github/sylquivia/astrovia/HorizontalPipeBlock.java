@@ -57,12 +57,12 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		BlockView blockView = ctx.getWorld();
-		BlockPos blockPos = ctx.getBlockPos();
-		BlockState blockState = blockView.getBlockState(blockPos.north());
-		BlockState blockState2 = blockView.getBlockState(blockPos.east());
-		BlockState blockState3 = blockView.getBlockState(blockPos.south());
-		BlockState blockState4 = blockView.getBlockState(blockPos.west());
-		FluidState fluidState = blockView.getFluidState(blockPos);
+		BlockPos pos = ctx.getBlockPos();
+		BlockState blockState = blockView.getBlockState(pos.north());
+		BlockState blockState2 = blockView.getBlockState(pos.east());
+		BlockState blockState3 = blockView.getBlockState(pos.south());
+		BlockState blockState4 = blockView.getBlockState(pos.west());
+		FluidState fluidState = blockView.getFluidState(pos);
 
 		return getDefaultState()
 			.with(NORTH, canConnectHorizontally(blockState))
@@ -70,6 +70,12 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			.with(SOUTH, canConnectHorizontally(blockState3))
 			.with(WEST, canConnectHorizontally(blockState4))
 			.with(WATERLOGGED, fluidState.isOf(Fluids.WATER));
+	}
+
+	private boolean canTakeGasFrom(BlockState state) {
+		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
+			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK)
+			|| state.isOf(AstroviaBlocks.OIL_HEATER_BLOCK);
 	}
 
 	@Override
@@ -84,6 +90,13 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 
 		if (state.get(WATERLOGGED)) {
 			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+		}
+
+		if (canTakeGasFrom(neighborState)) {
+			if (neighborState.get(GAS) > 0 && state.get(GAS) < 3) {
+				world.setBlockState(neighborPos, neighborState.with(GAS, neighborState.get(GAS) - 1), Block.NOTIFY_LISTENERS);
+				world.setBlockState(pos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
+			}
 		}
 
 		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
@@ -113,11 +126,5 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return VoxelShapes.cuboid(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
-	}
-
-	@Nullable
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return checkType(type, AstroviaBlocks.HORIZONTAL_PIPE_BLOCK_ENTITY, (HorizontalPipeBlockEntity :: tick));
 	}
 }

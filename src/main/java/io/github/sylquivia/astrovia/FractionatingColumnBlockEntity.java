@@ -127,7 +127,7 @@ public class FractionatingColumnBlockEntity extends BlockEntity {
 				blockEntity.progress ++;
 			}
 
-			if (state.get(GAS) > 0 && neighborState5.get(GAS) > 0 && neighborState6.get(GAS) > 0 && blockEntity.progress >= blockEntity.maxProgress) {
+			if (state.get(GAS) > 0 && neighborState5.get(GAS) > 0 && neighborState6.get(GAS) > 0 && state.get(GAS) < 3 && neighborState5.get(GAS) < 3 && neighborState6.get(GAS) < 3 && blockEntity.progress >= blockEntity.maxProgress) {
 				blockEntity.progress = 0;
 
 				world.setBlockState(blockPos, state
