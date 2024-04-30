@@ -32,7 +32,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 	public static final IntProperty NAPHTHA = AstroviaProperties.NAPHTHA_3;
 	public static final IntProperty KEROSENE = AstroviaProperties.KEROSENE_3;
 	public static final IntProperty FUEL_OIL = AstroviaProperties.FUEL_OIL_3;
-	private BlockState input, output;
+	private BlockPos input, output;
 
 	public HorizontalPipeBlock(Settings settings) {
 		super(settings);
@@ -74,28 +74,24 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 						BlockPos neighborPos1, BlockPos neighborPos2, BlockPos neighborPos3, BlockPos neighborPos4) {
 		if (canTakeGasFrom(neighborState1)) {
 			if (neighborState1.get(GAS) > 0) {
-				ctx.getWorld().setBlockState(neighborPos1, neighborState1.with(GAS, neighborState1.get(GAS) - 1));
 				return 1;
 			}
 		}
 
 		if (canTakeGasFrom(neighborState2)) {
 			if (neighborState2.get(GAS) > 0) {
-				ctx.getWorld().setBlockState(neighborPos2, neighborState2.with(GAS, neighborState2.get(GAS) - 1));
 				return 1;
 			}
 		}
 
 		if (canTakeGasFrom(neighborState3)) {
 			if (neighborState3.get(GAS) > 0) {
-				ctx.getWorld().setBlockState(neighborPos3, neighborState3.with(GAS, neighborState3.get(GAS) - 1));
 				return 1;
 			}
 		}
 
 		if (canTakeGasFrom(neighborState4)) {
 			if (neighborState4.get(GAS) > 0) {
-				ctx.getWorld().setBlockState(neighborPos4, neighborState4.with(GAS, neighborState4.get(GAS) - 1));
 				return 1;
 			}
 		}
@@ -137,22 +133,42 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-		if (direction.getAxis().isHorizontal()) {
+		if (canTakeGasFrom(neighborState)) {
+			if (neighborState.get(GAS) > 0 && state.get(GAS) < 3 && neighborPos != output) {
+				input = pos;
+
+				if (direction.getAxis().isHorizontal()) {
+					world.setBlockState(pos, state
+							.with(GAS, state.get(GAS) + 1)
+							.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)),
+						Block.NOTIFY_LISTENERS);
+				} else {
+					world.setBlockState(pos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
+				}
+			} else if (direction.getAxis().isHorizontal()) {
+				world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
+			}
+		} else if (direction.getAxis().isHorizontal()) {
 			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
 		}
 
-		if (canTakeGasFrom(neighborState)) {
-			if (neighborState.get(GAS) > 0 && state.get(GAS) < 3 && neighborState != output) {
-				world.setBlockState(pos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
-				input = neighborState;
-			}
-		}
-
 		if (canGiveGasTo(neighborState)) {
-			if (state.get(GAS) > 0 && neighborState.get(GAS) < 3 && neighborState != input) {
-				world.setBlockState(pos, state.with(GAS, state.get(GAS) - 1), Block.NOTIFY_LISTENERS);
-				output = neighborState;
+			if (state.get(GAS) > 0 && neighborState.get(GAS) < 3 && neighborPos != input) {
+				output = pos;
+
+				if (direction.getAxis().isHorizontal()) {
+					world.setBlockState(pos, state
+							.with(GAS, state.get(GAS) - 1)
+							.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)),
+						Block.NOTIFY_LISTENERS);
+				} else {
+					world.setBlockState(pos, state.with(GAS, state.get(GAS) - 1), Block.NOTIFY_LISTENERS);
+				}
+			} else if (direction.getAxis().isHorizontal()) {
+				world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
 			}
+		} else if (direction.getAxis().isHorizontal()) {
+			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
 		}
 
 		if (state.get(WATERLOGGED)) {
