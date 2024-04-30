@@ -16,6 +16,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvider {
@@ -23,6 +24,7 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 	public static final BooleanProperty LIT = Properties.LIT;
 	public static final IntProperty OIL = AstroviaProperties.OIL_3;
 	public static final IntProperty GAS = AstroviaProperties.GAS_3;
+	private BlockState input, output;
 	protected OilHeaterBlock(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState()
@@ -85,5 +87,34 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
 		return checkType(type, AstroviaBlocks.OIL_HEATER_BLOCK_ENTITY, (OilHeaterBlockEntity :: tick));
+	}
+
+	private boolean canTakeOilFrom(BlockState state) {
+		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
+			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK);
+	}
+
+	private boolean canGiveGasTo(BlockState state) {
+		return state.isOf(AstroviaBlocks.DIRECTIONAL_PIPE_BLOCK)
+			|| state.isOf(AstroviaBlocks.HORIZONTAL_PIPE_BLOCK);
+	}
+
+	@Override
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+		if (canTakeOilFrom(neighborState)) {
+			if (neighborState.get(OIL) > 0 && state.get(OIL) < 3 && neighborState != output) {
+				world.setBlockState(pos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
+				input = neighborState;
+			}
+		}
+
+		if (canGiveGasTo(neighborState)) {
+			if (state.get(GAS) > 0 && neighborState.get(GAS) < 3 && neighborState != input) {
+				world.setBlockState(pos, state.with(GAS, state.get(GAS) - 1), Block.NOTIFY_LISTENERS);
+				output = neighborState;
+			}
+		}
+
+		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 }
