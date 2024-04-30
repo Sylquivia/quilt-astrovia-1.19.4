@@ -24,7 +24,7 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 	public static final BooleanProperty LIT = Properties.LIT;
 	public static final IntProperty OIL = AstroviaProperties.OIL_3;
 	public static final IntProperty GAS = AstroviaProperties.GAS_3;
-	private BlockState input, output;
+	private BlockPos input, output;
 	protected OilHeaterBlock(Settings settings) {
 		super(settings);
 		setDefaultState(getDefaultState()
@@ -102,16 +102,16 @@ public class OilHeaterBlock extends BlockWithEntity implements BlockEntityProvid
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
 		if (canTakeOilFrom(neighborState)) {
-			if (neighborState.get(OIL) > 0 && state.get(OIL) < 3 && neighborState != output) {
+			if (neighborState.get(OIL) > 0 && state.get(OIL) < 3 && neighborPos != output) {
 				world.setBlockState(pos, state.with(OIL, state.get(OIL) + 1), Block.NOTIFY_LISTENERS);
-				input = neighborState;
+				input = neighborPos;
 			}
 		}
 
 		if (canGiveGasTo(neighborState)) {
-			if (state.get(GAS) > 0 && neighborState.get(GAS) < 3 && neighborState != input) {
+			if (state.get(GAS) > 0 && neighborState.get(GAS) < 3 && neighborPos != input) {
 				world.setBlockState(pos, state.with(GAS, state.get(GAS) - 1), Block.NOTIFY_LISTENERS);
-				output = neighborState;
+				output = neighborPos;
 			}
 		}
 

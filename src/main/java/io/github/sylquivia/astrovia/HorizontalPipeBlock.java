@@ -2,8 +2,6 @@ package io.github.sylquivia.astrovia;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -16,7 +14,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,6 +30,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 	public static final IntProperty KEROSENE = AstroviaProperties.KEROSENE_3;
 	public static final IntProperty FUEL_OIL = AstroviaProperties.FUEL_OIL_3;
 	private BlockPos input, output;
+	private BlockState newState;
 
 	public HorizontalPipeBlock(Settings settings) {
 		super(settings);
@@ -69,9 +67,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			|| state.isOf(AstroviaBlocks.FRACTIONATING_COLUMN_BLOCK);
 	}
 
-	private int takeGas(ItemPlacementContext ctx,
-						BlockState neighborState1, BlockState neighborState2, BlockState neighborState3, BlockState neighborState4,
-						BlockPos neighborPos1, BlockPos neighborPos2, BlockPos neighborPos3, BlockPos neighborPos4) {
+	private int takeGas(ItemPlacementContext ctx, BlockState neighborState1, BlockState neighborState2, BlockState neighborState3, BlockState neighborState4) {
 		if (canTakeGasFrom(neighborState1)) {
 			if (neighborState1.get(GAS) > 0) {
 				return 1;
@@ -125,7 +121,7 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 			.with(WEST, canConnectHorizontally(blockState4))
 			.with(WATERLOGGED, fluidState.isOf(Fluids.WATER))
 			.with(OIL, 0)
-			.with(GAS, takeGas(ctx, blockState1, blockState2, blockState3, blockState4, pos1, pos2, pos3, pos4))
+			.with(GAS, takeGas(ctx, blockState1, blockState2, blockState3, blockState4))
 			.with(NAPHTHA, 0)
 			.with(KEROSENE, 0)
 			.with(FUEL_OIL, 0);
@@ -133,43 +129,27 @@ public class HorizontalPipeBlock extends BlockWithEntity implements Waterloggabl
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-		if (canTakeGasFrom(neighborState)) {
-			if (neighborState.get(GAS) > 0 && state.get(GAS) < 3 && neighborPos != output) {
-				input = pos;
+		if (direction.getAxis().isHorizontal()) {
+			newState = state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState));
+		}
 
-				if (direction.getAxis().isHorizontal()) {
-					world.setBlockState(pos, state
-							.with(GAS, state.get(GAS) + 1)
-							.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)),
-						Block.NOTIFY_LISTENERS);
-				} else {
-					world.setBlockState(pos, state.with(GAS, state.get(GAS) + 1), Block.NOTIFY_LISTENERS);
-				}
-			} else if (direction.getAxis().isHorizontal()) {
-				world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
+		if (canTakeGasFrom(neighborState)) {
+			if (neighborState.get(GAS) > 0 && state.get(GAS) < 3) {
+				input = neighborPos;
+				newState = newState.with(GAS, state.get(GAS) + 1);
+				System.out.println(neighborPos + " gave 1 gas to " + pos);
 			}
-		} else if (direction.getAxis().isHorizontal()) {
-			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
 		}
 
 		if (canGiveGasTo(neighborState)) {
 			if (state.get(GAS) > 0 && neighborState.get(GAS) < 3 && neighborPos != input) {
-				output = pos;
-
-				if (direction.getAxis().isHorizontal()) {
-					world.setBlockState(pos, state
-							.with(GAS, state.get(GAS) - 1)
-							.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)),
-						Block.NOTIFY_LISTENERS);
-				} else {
-					world.setBlockState(pos, state.with(GAS, state.get(GAS) - 1), Block.NOTIFY_LISTENERS);
-				}
-			} else if (direction.getAxis().isHorizontal()) {
-				world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
+				//output = neighborPos;
+				newState = newState.with(GAS, state.get(GAS) - 1);
+				System.out.println(neighborPos + " took 1 gas from " + pos);
 			}
-		} else if (direction.getAxis().isHorizontal()) {
-			world.setBlockState(pos, state.with(FACING_PROPERTIES.get(direction), canConnectHorizontally(neighborState)), Block.NOTIFY_LISTENERS);
 		}
+
+		world.setBlockState(pos, newState, Block.NOTIFY_LISTENERS);
 
 		if (state.get(WATERLOGGED)) {
 			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));

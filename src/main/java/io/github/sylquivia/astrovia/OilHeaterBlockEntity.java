@@ -129,11 +129,19 @@ public class OilHeaterBlockEntity extends BlockEntity implements NamedScreenHand
 			if (blockEntity.progress >= blockEntity.maxProgress) {
 				blockEntity.progress = 0;
 
-				world.setBlockState(pos, state
-						.with(OIL, state.get(OIL) - 1)
-						.with(GAS, state.get(GAS) + 1)
-						.with(LIT, true),
-					Block.NOTIFY_LISTENERS);
+				if (blockEntity.burnTime <= 0 && !blockEntity.getStack(0).isOf(Items.LAVA_BUCKET)) {
+					world.setBlockState(pos, state
+							.with(OIL, state.get(OIL) - 1)
+							.with(GAS, state.get(GAS) + 1)
+							.with(LIT, false),
+						Block.NOTIFY_LISTENERS);
+				} else {
+					world.setBlockState(pos, state
+							.with(OIL, state.get(OIL) - 1)
+							.with(GAS, state.get(GAS) + 1)
+							.with(LIT, true),
+						Block.NOTIFY_LISTENERS);
+				}
 			}
 		}
 
